@@ -158,6 +158,8 @@ void NocturneDSPAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, 
 
     juce::dsp::AudioBlock<float> block = juce::dsp::AudioBlock<float>(buffer);
     
+    gain.process(juce::dsp::ProcessContextReplacing<float>(block));
+    
     LSTM.process(buffer.getReadPointer(0), buffer.getWritePointer(0), numSamples);
 
     for (int ch = 1; ch < buffer.getNumChannels(); ++ch)
@@ -265,6 +267,9 @@ juce::AudioProcessorValueTreeState::ParameterLayout NocturneDSPAudioProcessor::c
 {
     juce::AudioProcessorValueTreeState::ParameterLayout layout;
     
+    // Gain
+    layout.add(std::make_unique<juce::AudioParameterFloat>("GAIN", "Gain", juce::NormalisableRange<float>(1.f, 10.f, .1f), DEFAULT_GAIN));
+    
     // Volume
     layout.add(std::make_unique<juce::AudioParameterFloat>("VOLUME", "Volume", juce::NormalisableRange<float>(-12.f, 12.f, .1f), DEFAULT_VOLUME));
     
@@ -275,8 +280,11 @@ void NocturneDSPAudioProcessor::updateParams()
 {
 //    float sampleRate = getSampleRate();
     
+    // Gain
+    auto G = state.getRawParameterValue("GAIN");
+    gain.setGainLinear(G->load());
+    
     // Volume
     auto V = state.getRawParameterValue("VOLUME");
-//    float volumeValue = V->load();
     volume.setGainDecibels(V->load());
 }

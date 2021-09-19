@@ -13,6 +13,7 @@
 #include "NumCpp.hpp"
 #include "include/lstm.h"
 
+#define DEFAULT_GAIN 1.f
 #define DEFAULT_VOLUME 6.f
 
 //==============================================================================
@@ -67,7 +68,7 @@ public:
     lstm LSTM;
 private:
     juce::dsp::Convolution cab;
-    juce::dsp::Gain<float> volume;
+    juce::dsp::Gain<float> gain, volume;
     
     juce::AudioProcessorValueTreeState::ParameterLayout createParams();
     void updateParams();

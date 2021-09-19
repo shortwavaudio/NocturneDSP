@@ -13,8 +13,15 @@
 NocturneDSPAudioProcessorEditor::NocturneDSPAudioProcessorEditor (NocturneDSPAudioProcessor& p)
     : AudioProcessorEditor (&p), audioProcessor (p)
 {
+    // GAIN
+    gainSlider.setName("Gain");
+    gainSlider.setSliderStyle(juce::Slider::SliderStyle::LinearHorizontal);
+    gainSlider.setTextBoxStyle(juce::Slider::TextBoxRight, true, 50, 25);
+    addAndMakeVisible(gainSlider);
+    gainSliderAttachment = std::make_unique<juce::AudioProcessorValueTreeState::SliderAttachment>(audioProcessor.state, "GAIN", gainSlider);
+    
     // VOLUME
-    volumeSlider.setName("Input");
+    volumeSlider.setName("Volume");
     volumeSlider.setSliderStyle(juce::Slider::SliderStyle::LinearHorizontal);
     volumeSlider.setTextBoxStyle(juce::Slider::TextBoxRight, true, 50, 25);
     addAndMakeVisible(volumeSlider);
@@ -39,6 +46,7 @@ void NocturneDSPAudioProcessorEditor::paint (juce::Graphics& g)
     g.setFont (15.0f);
     g.drawFittedText ("Nocturne DSP Kitchen Sink", getLocalBounds().reduced(10), juce::Justification::centredTop, 1);
     
+    g.drawText("Gain", 20, getHeight() - 140, 100, 20, juce::Justification::centredLeft);
     g.drawText("Volume", 20, getHeight() - 70, 100, 20, juce::Justification::centredLeft);
 }
 
@@ -46,5 +54,6 @@ void NocturneDSPAudioProcessorEditor::resized()
 {
     // This is generally where you'll want to lay out the positions of any
     // subcomponents in your editor..
+    gainSlider.setBounds(10, getHeight() - 130, getWidth() - 30, 50);
     volumeSlider.setBounds(10, getHeight() - 60, getWidth() - 30, 50);
 }
