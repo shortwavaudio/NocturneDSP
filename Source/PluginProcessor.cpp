@@ -22,7 +22,7 @@ NocturneDSPAudioProcessor::NocturneDSPAudioProcessor()
                        ), state(*this, nullptr, "parameters", createParams())
 #endif
 {
-    loadProfile(BinaryData::_04_revv_g20_lstm_crunch_boost_json);
+    loadProfile(BinaryData::_01_revv_g20_lstm_clean_json);
     loadCab(BinaryData::default_wav , BinaryData::default_wavSize);
 }
 
