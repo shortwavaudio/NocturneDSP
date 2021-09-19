@@ -9,6 +9,9 @@
 #pragma once
 
 #include <JuceHeader.h>
+#include <nlohmann/json.hpp>
+#include "NumCpp.hpp"
+#include "include/lstm.h"
 
 #define DEFAULT_VOLUME 6.f
 
@@ -58,6 +61,10 @@ public:
     juce::AudioProcessorValueTreeState state;
 
     void loadCab(const char *impulse, const int size);
+    void loadProfile(const char *jsonFile);
+    
+    ModelLoader loader;
+    lstm LSTM;
 private:
     juce::dsp::Convolution cab;
     juce::dsp::Gain<float> volume;

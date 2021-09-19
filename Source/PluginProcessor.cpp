@@ -22,6 +22,7 @@ NocturneDSPAudioProcessor::NocturneDSPAudioProcessor()
                        ), state(*this, nullptr, "parameters", createParams())
 #endif
 {
+    loadProfile(BinaryData::_04_revv_g20_lstm_crunch_boost_json);
     loadCab(BinaryData::default_wav , BinaryData::default_wavSize);
 }
 
@@ -142,6 +143,7 @@ void NocturneDSPAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, 
     juce::ScopedNoDenormals noDenormals;
     auto totalNumInputChannels  = getTotalNumInputChannels();
     auto totalNumOutputChannels = getTotalNumOutputChannels();
+    int numSamples = buffer.getNumSamples();
 
     // In case we have more outputs than inputs, this code clears any output
     // channels that didn't contain input data, (because these aren't
@@ -150,11 +152,16 @@ void NocturneDSPAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, 
     // when they first compile a plugin, but obviously you don't need to keep
     // this code if your algorithm always overwrites all the output channels.
     for (auto i = totalNumInputChannels; i < totalNumOutputChannels; ++i)
-        buffer.clear (i, 0, buffer.getNumSamples());
+        buffer.clear (i, 0, numSamples);
     
     updateParams();
 
     juce::dsp::AudioBlock<float> block = juce::dsp::AudioBlock<float>(buffer);
+    
+    LSTM.process(buffer.getReadPointer(0), buffer.getWritePointer(0), numSamples);
+
+    for (int ch = 1; ch < buffer.getNumChannels(); ++ch)
+        buffer.copyFrom(ch, 0, buffer, 0, 0, numSamples);
 
     cab.process(juce::dsp::ProcessContextReplacing<float>(block));
     
@@ -206,6 +213,51 @@ void NocturneDSPAudioProcessor::loadCab(const char *impulse, const int size)
         0
     );
     
+    this->suspendProcessing(false);
+}
+
+void NocturneDSPAudioProcessor::loadProfile(const char *jsonFile)
+{
+    this->suspendProcessing(true);
+    
+    loader.load_binary(jsonFile);
+
+    std::cout << "loader.hidden_size: " << loader.hidden_size << std::endl;
+    std::cout << "loader.conv1d_kernel_size: " << loader.conv1d_kernel_size << std::endl;
+    std::cout << "loader.conv1d_1_kernel_size: " << loader.conv1d_1_kernel_size << std::endl;
+    std::cout << "loader.conv1d_num_channels: " << loader.conv1d_num_channels << std::endl;
+    std::cout << "loader.conv1d_1_num_channels: " << loader.conv1d_num_channels << std::endl;
+    std::cout << "loader.conv1d_bias_nc: " << loader.conv1d_bias_nc << std::endl;
+    std::cout << "loader.conv1d_1_bias_nc: " << loader.conv1d_1_bias_nc << std::endl;
+    std::cout << "loader.conv1d_kernel_nc|0: " << loader.conv1d_kernel_nc.at(0) << std::endl;
+    std::cout << "loader.conv1d_1_kernel_nc|0: " << loader.conv1d_1_kernel_nc.at(0) << std::endl;
+    std::cout << "loader.lstm_bias_nc: " << loader.lstm_bias_nc << std::endl;
+    std::cout << "loader.lstm_kernel_nc: " << loader.lstm_kernel_nc << std::endl;
+    std::cout << "loader.dense_bias_nc: " << loader.dense_bias_nc << std::endl;
+    std::cout << "loader.dense_kernel_nc: " << loader.dense_kernel_nc << std::endl;
+    std::cout << "loader.input_size_loader: " << loader.input_size_loader << std::endl;
+    std::cout << "loader.conv1d_stride_loader: " << loader.conv1d_stride_loader << std::endl;
+    std::cout << "loader.conv1d_1_stride_loader: " << loader.conv1d_1_stride_loader << std::endl;
+    
+    LSTM.setParams(
+        loader.hidden_size,
+        loader.conv1d_kernel_size,
+        loader.conv1d_1_kernel_size,
+        loader.conv1d_num_channels,
+        loader.conv1d_1_num_channels,
+        loader.conv1d_bias_nc,
+        loader.conv1d_1_bias_nc,
+        loader.conv1d_kernel_nc,
+        loader.conv1d_1_kernel_nc,
+        loader.lstm_bias_nc,
+        loader.lstm_kernel_nc,
+        loader.dense_bias_nc,
+        loader.dense_kernel_nc,
+        loader.input_size_loader,
+        loader.conv1d_stride_loader,
+        loader.conv1d_1_stride_loader
+    );
+
     this->suspendProcessing(false);
 }
 

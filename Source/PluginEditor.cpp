@@ -38,11 +38,13 @@ void NocturneDSPAudioProcessorEditor::paint (juce::Graphics& g)
     g.setColour (juce::Colours::white);
     g.setFont (15.0f);
     g.drawFittedText ("Nocturne DSP Kitchen Sink", getLocalBounds().reduced(10), juce::Justification::centredTop, 1);
+    
+    g.drawText("Volume", 20, getHeight() - 70, 100, 20, juce::Justification::centredLeft);
 }
 
 void NocturneDSPAudioProcessorEditor::resized()
 {
     // This is generally where you'll want to lay out the positions of any
     // subcomponents in your editor..
-    volumeSlider.setBounds(10, 60, getWidth() - 30, 50);
+    volumeSlider.setBounds(10, getHeight() - 60, getWidth() - 30, 50);
 }
