@@ -15,7 +15,7 @@ NocturneDSPAudioProcessorEditor::NocturneDSPAudioProcessorEditor (NocturneDSPAud
 {
     // Make sure that before the constructor has finished, you've set the
     // editor's size to whatever you need it to be.
-    setSize (400, 300);
+    setSize (800, 500);
 }
 
 NocturneDSPAudioProcessorEditor::~NocturneDSPAudioProcessorEditor()
@@ -30,7 +30,7 @@ void NocturneDSPAudioProcessorEditor::paint (juce::Graphics& g)
 
     g.setColour (juce::Colours::white);
     g.setFont (15.0f);
-    g.drawFittedText ("Hello World!", getLocalBounds(), juce::Justification::centred, 1);
+    g.drawFittedText ("Nocturne DSP Kitchen Sink", getLocalBounds().reduced(10), juce::Justification::centredTop, 1);
 }
 
 void NocturneDSPAudioProcessorEditor::resized()

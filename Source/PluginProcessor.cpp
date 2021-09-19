@@ -22,6 +22,7 @@ NocturneDSPAudioProcessor::NocturneDSPAudioProcessor()
                        )
 #endif
 {
+    loadCab(BinaryData::default_wav , BinaryData::default_wavSize);
 }
 
 NocturneDSPAudioProcessor::~NocturneDSPAudioProcessor()
@@ -95,6 +96,13 @@ void NocturneDSPAudioProcessor::prepareToPlay (double sampleRate, int samplesPer
 {
     // Use this method as the place to do any pre-playback
     // initialisation that you need..
+    juce::dsp::ProcessSpec spec;
+    spec.maximumBlockSize = samplesPerBlock;
+    spec.numChannels = getTotalNumOutputChannels();
+    spec.sampleRate = sampleRate;
+    
+    cab.prepare(spec);
+    cab.reset();
 }
 
 void NocturneDSPAudioProcessor::releaseResources()
@@ -144,18 +152,9 @@ void NocturneDSPAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, 
     for (auto i = totalNumInputChannels; i < totalNumOutputChannels; ++i)
         buffer.clear (i, 0, buffer.getNumSamples());
 
-    // This is the place where you'd normally do the guts of your plugin's
-    // audio processing...
-    // Make sure to reset the state if your inner loop is processing
-    // the samples and the outer loop is handling the channels.
-    // Alternatively, you can process the samples with the channels
-    // interleaved by keeping the same state.
-    for (int channel = 0; channel < totalNumInputChannels; ++channel)
-    {
-        auto* channelData = buffer.getWritePointer (channel);
+    juce::dsp::AudioBlock<float> block = juce::dsp::AudioBlock<float>(buffer);
 
-        // ..do something to the data...
-    }
+    cab.process(juce::dsp::ProcessContextReplacing<float>(block));
 }
 
 //==============================================================================
@@ -188,4 +187,19 @@ void NocturneDSPAudioProcessor::setStateInformation (const void* data, int sizeI
 juce::AudioProcessor* JUCE_CALLTYPE createPluginFilter()
 {
     return new NocturneDSPAudioProcessor();
+}
+
+void NocturneDSPAudioProcessor::loadCab(const char *impulse, const int size)
+{
+    this->suspendProcessing(true);
+
+    cab.loadImpulseResponse(
+        impulse,
+        size,
+        juce::dsp::Convolution::Stereo::no,
+        juce::dsp::Convolution::Trim::no,
+        0
+    );
+    
+    this->suspendProcessing(false);
 }

@@ -53,7 +53,10 @@ public:
     void getStateInformation (juce::MemoryBlock& destData) override;
     void setStateInformation (const void* data, int sizeInBytes) override;
 
+    void loadCab(const char *impulse, const int size);
 private:
+    juce::dsp::Convolution cab;
+    juce::dsp::Gain<float> volume;
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (NocturneDSPAudioProcessor)
 };
