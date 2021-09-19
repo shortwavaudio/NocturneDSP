@@ -9,7 +9,7 @@
 namespace BinaryData
 {
     extern const char*   default_wav;
-    const int            default_wavSize = 132404;
+    const int            default_wavSize = 72104;
 
     extern const char*   _01_revv_g20_lstm_clean_json;
     const int            _01_revv_g20_lstm_clean_jsonSize = 15583;

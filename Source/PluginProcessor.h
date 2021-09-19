@@ -10,6 +10,8 @@
 
 #include <JuceHeader.h>
 
+#define DEFAULT_VOLUME 6.f
+
 //==============================================================================
 /**
 */
@@ -52,11 +54,16 @@ public:
     //==============================================================================
     void getStateInformation (juce::MemoryBlock& destData) override;
     void setStateInformation (const void* data, int sizeInBytes) override;
+    
+    juce::AudioProcessorValueTreeState state;
 
     void loadCab(const char *impulse, const int size);
 private:
     juce::dsp::Convolution cab;
     juce::dsp::Gain<float> volume;
+    
+    juce::AudioProcessorValueTreeState::ParameterLayout createParams();
+    void updateParams();
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (NocturneDSPAudioProcessor)
 };

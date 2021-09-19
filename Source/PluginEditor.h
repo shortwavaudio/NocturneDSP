@@ -28,6 +28,9 @@ private:
     // This reference is provided as a quick way for your editor to
     // access the processor object that created it.
     NocturneDSPAudioProcessor& audioProcessor;
+    
+    juce::Slider volumeSlider;
+    std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment> volumeSliderAttachment;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (NocturneDSPAudioProcessorEditor)
 };

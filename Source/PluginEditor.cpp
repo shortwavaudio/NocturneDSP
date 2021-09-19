@@ -13,9 +13,16 @@
 NocturneDSPAudioProcessorEditor::NocturneDSPAudioProcessorEditor (NocturneDSPAudioProcessor& p)
     : AudioProcessorEditor (&p), audioProcessor (p)
 {
+    // VOLUME
+    volumeSlider.setName("Input");
+    volumeSlider.setSliderStyle(juce::Slider::SliderStyle::LinearHorizontal);
+    volumeSlider.setTextBoxStyle(juce::Slider::TextBoxRight, true, 50, 25);
+    addAndMakeVisible(volumeSlider);
+    volumeSliderAttachment = std::make_unique<juce::AudioProcessorValueTreeState::SliderAttachment>(audioProcessor.state, "VOLUME", volumeSlider);
+    
     // Make sure that before the constructor has finished, you've set the
     // editor's size to whatever you need it to be.
-    setSize (800, 500);
+    setSize (600, 500);
 }
 
 NocturneDSPAudioProcessorEditor::~NocturneDSPAudioProcessorEditor()
@@ -37,4 +44,5 @@ void NocturneDSPAudioProcessorEditor::resized()
 {
     // This is generally where you'll want to lay out the positions of any
     // subcomponents in your editor..
+    volumeSlider.setBounds(10, 60, getWidth() - 30, 50);
 }

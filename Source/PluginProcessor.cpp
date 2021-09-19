@@ -19,7 +19,7 @@ NocturneDSPAudioProcessor::NocturneDSPAudioProcessor()
                       #endif
                        .withOutput ("Output", juce::AudioChannelSet::stereo(), true)
                      #endif
-                       )
+                       ), state(*this, nullptr, "parameters", createParams())
 #endif
 {
     loadCab(BinaryData::default_wav , BinaryData::default_wavSize);
@@ -151,10 +151,14 @@ void NocturneDSPAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, 
     // this code if your algorithm always overwrites all the output channels.
     for (auto i = totalNumInputChannels; i < totalNumOutputChannels; ++i)
         buffer.clear (i, 0, buffer.getNumSamples());
+    
+    updateParams();
 
     juce::dsp::AudioBlock<float> block = juce::dsp::AudioBlock<float>(buffer);
 
     cab.process(juce::dsp::ProcessContextReplacing<float>(block));
+    
+    volume.process(juce::dsp::ProcessContextReplacing<float>(block));
 }
 
 //==============================================================================
@@ -202,4 +206,24 @@ void NocturneDSPAudioProcessor::loadCab(const char *impulse, const int size)
     );
     
     this->suspendProcessing(false);
+}
+
+juce::AudioProcessorValueTreeState::ParameterLayout NocturneDSPAudioProcessor::createParams()
+{
+    juce::AudioProcessorValueTreeState::ParameterLayout layout;
+    
+    // Volume
+    layout.add(std::make_unique<juce::AudioParameterFloat>("VOLUME", "Volume", juce::NormalisableRange<float>(-12.f, 12.f, .1f), DEFAULT_VOLUME));
+    
+    return layout;
+}
+
+void NocturneDSPAudioProcessor::updateParams()
+{
+//    float sampleRate = getSampleRate();
+    
+    // Volume
+    auto V = state.getRawParameterValue("VOLUME");
+//    float volumeValue = V->load();
+    volume.setGainDecibels(V->load());
 }
