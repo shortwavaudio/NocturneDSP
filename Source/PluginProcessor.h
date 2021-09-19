@@ -72,6 +72,8 @@ private:
     juce::dsp::Convolution cab;
     juce::dsp::Gain<float> gain, volume;
     
+    bool cabEnabled;
+    
     juce::AudioProcessorValueTreeState::ParameterLayout createParams();
     void updateParams();
     //==============================================================================

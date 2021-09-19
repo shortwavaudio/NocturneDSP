@@ -34,11 +34,16 @@ private:
     juce::Slider gainSlider, volumeSlider;
     std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment> gainSliderAttachment, volumeSliderAttachment;
     
-    juce::ComboBox channelSelector;
-    std::unique_ptr<juce::AudioProcessorValueTreeState::ComboBoxAttachment> channelSelectorAttachment;
+    juce::ComboBox cabSelector, channelSelector;
+    std::unique_ptr<juce::AudioProcessorValueTreeState::ComboBoxAttachment> cabSelectorAttachment, channelSelectorAttachment;
     
     juce::ToggleButton boostToggle { "BOOST" };
-    std::unique_ptr<juce::AudioProcessorValueTreeState::ButtonAttachment> boostAttachment;
+    juce::ToggleButton cabToggle { "CAB ENABLED" };
+    std::unique_ptr<juce::AudioProcessorValueTreeState::ButtonAttachment> cabAttachment, boostAttachment;
+    
+    const juce::StringArray cabs = {
+        "default"
+    };
     
     const juce::StringArray channels = {
         "clean",

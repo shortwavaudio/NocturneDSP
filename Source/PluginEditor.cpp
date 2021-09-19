@@ -19,6 +19,15 @@ NocturneDSPAudioProcessorEditor::NocturneDSPAudioProcessorEditor (NocturneDSPAud
     addAndMakeVisible(channelSelector);
     channelSelectorAttachment = std::make_unique<juce::AudioProcessorValueTreeState::ComboBoxAttachment>(audioProcessor.state, "CHANNEL", channelSelector);
     
+    // CAB SELECTOR
+    cabSelector.addItemList(cabs, 1);
+//    cabSelector.onChange = [&]() { updateProfile(); };
+    addAndMakeVisible(cabSelector);
+    cabSelectorAttachment = std::make_unique<juce::AudioProcessorValueTreeState::ComboBoxAttachment>(audioProcessor.state, "CAB", cabSelector);
+
+    addAndMakeVisible(cabToggle);
+    cabAttachment = std::make_unique<juce::AudioProcessorValueTreeState::ButtonAttachment>(audioProcessor.state, "CABENABLED", cabToggle);
+    
     // BOOST
     addAndMakeVisible(boostToggle);
     boostToggle.onStateChange = [&]() { updateProfile(); };
@@ -67,6 +76,9 @@ void NocturneDSPAudioProcessorEditor::resized()
     // subcomponents in your editor..
     channelSelector.setBounds(10, getHeight() - 450, getWidth() - 30, 40);
     boostToggle.setBounds(10, getHeight() - 400, 100, 30);
+    
+    cabSelector.setBounds(10, getHeight() - 350, getWidth() - 30, 40);
+    cabToggle.setBounds(10, getHeight() - 300, 100, 30);
     
     gainSlider.setBounds(10, getHeight() - 130, getWidth() - 30, 50);
     volumeSlider.setBounds(10, getHeight() - 60, getWidth() - 30, 50);
