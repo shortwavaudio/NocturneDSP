@@ -66,6 +66,8 @@ public:
     
     ModelLoader loader;
     lstm LSTM;
+    
+//    bool boostEnabled;
 private:
     juce::dsp::Convolution cab;
     juce::dsp::Gain<float> gain, volume;

@@ -224,22 +224,22 @@ void NocturneDSPAudioProcessor::loadProfile(const char *jsonFile)
     
     loader.load_binary(jsonFile);
 
-    std::cout << "loader.hidden_size: " << loader.hidden_size << std::endl;
-    std::cout << "loader.conv1d_kernel_size: " << loader.conv1d_kernel_size << std::endl;
-    std::cout << "loader.conv1d_1_kernel_size: " << loader.conv1d_1_kernel_size << std::endl;
-    std::cout << "loader.conv1d_num_channels: " << loader.conv1d_num_channels << std::endl;
-    std::cout << "loader.conv1d_1_num_channels: " << loader.conv1d_num_channels << std::endl;
-    std::cout << "loader.conv1d_bias_nc: " << loader.conv1d_bias_nc << std::endl;
-    std::cout << "loader.conv1d_1_bias_nc: " << loader.conv1d_1_bias_nc << std::endl;
-    std::cout << "loader.conv1d_kernel_nc|0: " << loader.conv1d_kernel_nc.at(0) << std::endl;
-    std::cout << "loader.conv1d_1_kernel_nc|0: " << loader.conv1d_1_kernel_nc.at(0) << std::endl;
-    std::cout << "loader.lstm_bias_nc: " << loader.lstm_bias_nc << std::endl;
-    std::cout << "loader.lstm_kernel_nc: " << loader.lstm_kernel_nc << std::endl;
-    std::cout << "loader.dense_bias_nc: " << loader.dense_bias_nc << std::endl;
-    std::cout << "loader.dense_kernel_nc: " << loader.dense_kernel_nc << std::endl;
-    std::cout << "loader.input_size_loader: " << loader.input_size_loader << std::endl;
-    std::cout << "loader.conv1d_stride_loader: " << loader.conv1d_stride_loader << std::endl;
-    std::cout << "loader.conv1d_1_stride_loader: " << loader.conv1d_1_stride_loader << std::endl;
+//    std::cout << "loader.hidden_size: " << loader.hidden_size << std::endl;
+//    std::cout << "loader.conv1d_kernel_size: " << loader.conv1d_kernel_size << std::endl;
+//    std::cout << "loader.conv1d_1_kernel_size: " << loader.conv1d_1_kernel_size << std::endl;
+//    std::cout << "loader.conv1d_num_channels: " << loader.conv1d_num_channels << std::endl;
+//    std::cout << "loader.conv1d_1_num_channels: " << loader.conv1d_num_channels << std::endl;
+//    std::cout << "loader.conv1d_bias_nc: " << loader.conv1d_bias_nc << std::endl;
+//    std::cout << "loader.conv1d_1_bias_nc: " << loader.conv1d_1_bias_nc << std::endl;
+//    std::cout << "loader.conv1d_kernel_nc|0: " << loader.conv1d_kernel_nc.at(0) << std::endl;
+//    std::cout << "loader.conv1d_1_kernel_nc|0: " << loader.conv1d_1_kernel_nc.at(0) << std::endl;
+//    std::cout << "loader.lstm_bias_nc: " << loader.lstm_bias_nc << std::endl;
+//    std::cout << "loader.lstm_kernel_nc: " << loader.lstm_kernel_nc << std::endl;
+//    std::cout << "loader.dense_bias_nc: " << loader.dense_bias_nc << std::endl;
+//    std::cout << "loader.dense_kernel_nc: " << loader.dense_kernel_nc << std::endl;
+//    std::cout << "loader.input_size_loader: " << loader.input_size_loader << std::endl;
+//    std::cout << "loader.conv1d_stride_loader: " << loader.conv1d_stride_loader << std::endl;
+//    std::cout << "loader.conv1d_1_stride_loader: " << loader.conv1d_1_stride_loader << std::endl;
     
     LSTM.setParams(
         loader.hidden_size,
@@ -267,6 +267,10 @@ juce::AudioProcessorValueTreeState::ParameterLayout NocturneDSPAudioProcessor::c
 {
     juce::AudioProcessorValueTreeState::ParameterLayout layout;
     
+    // Channel
+    layout.add(std::make_unique<juce::AudioParameterInt>("CHANNEL", "Channel", 1, 4, 1));
+    layout.add(std::make_unique<juce::AudioParameterInt>("BOOSTENABLED", "BoostEnabled", 0, 1, 0));
+    
     // Gain
     layout.add(std::make_unique<juce::AudioParameterFloat>("GAIN", "Gain", juce::NormalisableRange<float>(1.f, 10.f, .1f), DEFAULT_GAIN));
     
@@ -281,10 +285,8 @@ void NocturneDSPAudioProcessor::updateParams()
 //    float sampleRate = getSampleRate();
     
     // Gain
-    auto G = state.getRawParameterValue("GAIN");
-    gain.setGainLinear(G->load());
+    gain.setGainLinear(state.getRawParameterValue("GAIN")->load());
     
     // Volume
-    auto V = state.getRawParameterValue("VOLUME");
-    volume.setGainDecibels(V->load());
+    volume.setGainDecibels(state.getRawParameterValue("VOLUME")->load());
 }

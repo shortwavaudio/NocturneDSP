@@ -13,6 +13,17 @@
 NocturneDSPAudioProcessorEditor::NocturneDSPAudioProcessorEditor (NocturneDSPAudioProcessor& p)
     : AudioProcessorEditor (&p), audioProcessor (p)
 {
+    // CHANNEL SELECTOR
+    channelSelector.addItemList(channels, 1);
+    channelSelector.onChange = [&]() { updateProfile(); };
+    addAndMakeVisible(channelSelector);
+    channelSelectorAttachment = std::make_unique<juce::AudioProcessorValueTreeState::ComboBoxAttachment>(audioProcessor.state, "CHANNEL", channelSelector);
+    
+    // BOOST
+    addAndMakeVisible(boostToggle);
+    boostToggle.onStateChange = [&]() { updateProfile(); };
+    boostAttachment = std::make_unique<juce::AudioProcessorValueTreeState::ButtonAttachment>(audioProcessor.state, "BOOSTENABLED", boostToggle);
+    
     // GAIN
     gainSlider.setName("Gain");
     gainSlider.setSliderStyle(juce::Slider::SliderStyle::LinearHorizontal);
@@ -54,6 +65,33 @@ void NocturneDSPAudioProcessorEditor::resized()
 {
     // This is generally where you'll want to lay out the positions of any
     // subcomponents in your editor..
+    channelSelector.setBounds(10, getHeight() - 450, getWidth() - 30, 40);
+    boostToggle.setBounds(10, getHeight() - 400, 100, 30);
+    
     gainSlider.setBounds(10, getHeight() - 130, getWidth() - 30, 50);
     volumeSlider.setBounds(10, getHeight() - 60, getWidth() - 30, 50);
+}
+
+void NocturneDSPAudioProcessorEditor::updateProfile()
+{
+    int choice = channelSelector.getSelectedId();
+    bool boostEnabled = boostToggle.getToggleState();
+    
+//    std::cout << "UPDATE PROFILE; CHOICE: " << choice << " BOOST ? " << boostEnabled << std::endl;
+
+    switch(choice)
+    {
+        case 1:
+            audioProcessor.loadProfile(boostEnabled ? BinaryData::_02_revv_g20_lstm_clean_boost_json : BinaryData::_01_revv_g20_lstm_clean_json);
+            break;
+        case 2:
+            audioProcessor.loadProfile(boostEnabled ? BinaryData::_04_revv_g20_lstm_crunch_boost_json : BinaryData::_03_revv_g20_lstm_crunch_json);
+            break;
+        case 3:
+            audioProcessor.loadProfile(boostEnabled ? BinaryData::_06_revv_g20_lstm_rhythm_boost_json : BinaryData::_05_revv_g20_lstm_rhythm_json);
+            break;
+        case 4:
+            audioProcessor.loadProfile(boostEnabled ? BinaryData::_08_revv_g20_lstm_lead_boost_json : BinaryData::_07_revv_g20_lstm_lead_json);
+            break;
+    }
 }

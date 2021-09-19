@@ -23,6 +23,8 @@ public:
     //==============================================================================
     void paint (juce::Graphics&) override;
     void resized() override;
+    
+    void updateProfile();
 
 private:
     // This reference is provided as a quick way for your editor to
@@ -31,6 +33,19 @@ private:
     
     juce::Slider gainSlider, volumeSlider;
     std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment> gainSliderAttachment, volumeSliderAttachment;
+    
+    juce::ComboBox channelSelector;
+    std::unique_ptr<juce::AudioProcessorValueTreeState::ComboBoxAttachment> channelSelectorAttachment;
+    
+    juce::ToggleButton boostToggle { "BOOST" };
+    std::unique_ptr<juce::AudioProcessorValueTreeState::ButtonAttachment> boostAttachment;
+    
+    const juce::StringArray channels = {
+        "clean",
+        "crunch",
+        "rhythm",
+        "lead"
+    };
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (NocturneDSPAudioProcessorEditor)
 };
