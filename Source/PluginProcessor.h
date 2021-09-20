@@ -9,9 +9,10 @@
 #pragma once
 
 #include <JuceHeader.h>
-#include <nlohmann/json.hpp>
-#include "NumCpp.hpp"
-#include "include/lstm.h"
+//#include <nlohmann/json.hpp>
+//#include "NumCpp.hpp"
+//#include "include/lstm.h"
+#include "include/RTNeuralLSTM.h"
 
 #define DEFAULT_GAIN 1.f
 #define DEFAULT_VOLUME 6.f
@@ -64,10 +65,11 @@ public:
     void loadCab(const char *impulse, const int size);
     void loadProfile(const char *jsonFile);
     
-    ModelLoader loader;
-    lstm LSTM;
+//    ModelLoader loader;
+//    lstm LSTM;
     
 //    bool boostEnabled;
+    RT_LSTM LSTM;
 private:
     juce::dsp::Convolution cab;
     juce::dsp::Gain<float> gain, volume;

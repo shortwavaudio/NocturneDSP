@@ -34,6 +34,9 @@
         <FILE id="YFvuPA" name="lstm.h" compile="0" resource="0" file="Source/include/lstm.h"/>
         <FILE id="t3UoCm" name="ModelLoader.cpp" compile="1" resource="0" file="Source/include/ModelLoader.cpp"/>
         <FILE id="is5qdW" name="ModelLoader.h" compile="0" resource="0" file="Source/include/ModelLoader.h"/>
+        <FILE id="gQk0IJ" name="RTNeuralLSTM.cpp" compile="1" resource="0"
+              file="Source/include/RTNeuralLSTM.cpp"/>
+        <FILE id="ZT7yiN" name="RTNeuralLSTM.h" compile="0" resource="0" file="Source/include/RTNeuralLSTM.h"/>
       </GROUP>
       <FILE id="u44Q9C" name="PluginProcessor.cpp" compile="1" resource="0"
             file="Source/PluginProcessor.cpp"/>
@@ -48,8 +51,8 @@
   <EXPORTFORMATS>
     <XCODE_MAC targetFolder="Builds/MacOSX">
       <CONFIGURATIONS>
-        <CONFIGURATION isDebug="1" name="Debug" targetName="NocturneDSP" headerPath="/Users/sppericat/Workspace/juce/json/include&#10;/Users/sppericat/Workspace/juce/NumCpp/include&#10;/Users/sppericat/Workspace/juce/boost_1_77_0"/>
-        <CONFIGURATION isDebug="0" name="Release" targetName="NocturneDSP" headerPath="/Users/sppericat/Workspace/juce/json/include&#10;/Users/sppericat/Workspace/juce/NumCpp/include&#10;/Users/sppericat/Workspace/juce/boost_1_77_0"/>
+        <CONFIGURATION isDebug="1" name="Debug" targetName="NocturneDSP" headerPath="/Users/sppericat/Workspace/juce/json/include&#10;/Users/sppericat/Workspace/juce/RTNeural&#10;/Users/sppericat/Workspace/juce/RTNeural/modules/xsimd/include&#10;/Users/sppericat/Workspace/juce/NumCpp/include&#10;/Users/sppericat/Workspace/juce/boost_1_77_0"/>
+        <CONFIGURATION isDebug="0" name="Release" targetName="NocturneDSP" headerPath="/Users/sppericat/Workspace/juce/json/include&#10;/Users/sppericat/Workspace/juce/RTNeural&#10;/Users/sppericat/Workspace/juce/RTNeural/modules/xsimd/include&#10;/Users/sppericat/Workspace/juce/NumCpp/include&#10;/Users/sppericat/Workspace/juce/boost_1_77_0"/>
       </CONFIGURATIONS>
       <MODULEPATHS>
         <MODULEPATH id="juce_audio_basics" path="../../../JUCE/modules"/>
