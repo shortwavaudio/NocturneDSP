@@ -23,7 +23,7 @@ NocturneDSPAudioProcessor::NocturneDSPAudioProcessor()
 #endif
 {
 //    loadProfile(BinaryData::_01_revv_g20_lstm_clean_json);
-    LSTM.load_json("/Users/sppericat/Workspace/juce/NocturneDSP/Resources/models/red.json");
+    LSTM.load_json("/Users/sppericat/Workspace/juce/NocturneDSP/Resources/models/model_best_1343.json");
     loadCab(BinaryData::default_wav , BinaryData::default_wavSize);
 }
 
