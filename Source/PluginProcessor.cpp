@@ -168,8 +168,8 @@ void NocturneDSPAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, 
     for (int ch = 1; ch < buffer.getNumChannels(); ++ch)
         buffer.copyFrom(ch, 0, buffer, 0, 0, numSamples);
 
-//    if(cabEnabled)
-//        cab.process(juce::dsp::ProcessContextReplacing<float>(block));
+    if(cabEnabled)
+        cab.process(juce::dsp::ProcessContextReplacing<float>(block));
 
     volume.process(juce::dsp::ProcessContextReplacing<float>(block));
 }
@@ -237,7 +237,7 @@ juce::AudioProcessorValueTreeState::ParameterLayout NocturneDSPAudioProcessor::c
     layout.add(std::make_unique<juce::AudioParameterInt>("BOOSTENABLED", "BoostEnabled", 0, 1, 0));
 
     // Cab
-//    layout.add(std::make_unique<juce::AudioParameterInt>("CAB", "Cab", 1, 1, 1));
+    layout.add(std::make_unique<juce::AudioParameterInt>("CAB", "Cab", 1, 2, 1));
     layout.add(std::make_unique<juce::AudioParameterInt>("CABENABLED", "CabEnabled", 0, 1, 1));
 
     // Gain
@@ -254,8 +254,8 @@ void NocturneDSPAudioProcessor::updateParams()
 //    float sampleRate = getSampleRate();
     
     // Cab
-//    cabEnabled = state.getRawParameterValue("CABENABLED")->load() == 1;
-//    
+    cabEnabled = state.getRawParameterValue("CABENABLED")->load() == 1;
+    
 //    // Gain
     gain.setGainDecibels(state.getRawParameterValue("GAIN")->load());
 //    

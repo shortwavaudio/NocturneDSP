@@ -8,6 +8,9 @@
 
 namespace BinaryData
 {
+    extern const char*   chunk_wav;
+    const int            chunk_wavSize = 72104;
+
     extern const char*   default_wav;
     const int            default_wavSize = 72104;
 
@@ -15,7 +18,7 @@ namespace BinaryData
     const int            model_best_1343_jsonSize = 97993;
 
     // Number of elements in the namedResourceList and originalFileNames arrays.
-    const int namedResourceListSize = 2;
+    const int namedResourceListSize = 3;
 
     // Points to the start of a list of resource names.
     extern const char* namedResourceList[];

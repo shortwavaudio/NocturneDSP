@@ -42,7 +42,8 @@ private:
     std::unique_ptr<juce::AudioProcessorValueTreeState::ButtonAttachment> cabAttachment, boostAttachment;
     
     const juce::StringArray cabs = {
-        "default"
+        "default",
+        "chunk"
     };
     
     const juce::StringArray channels = {

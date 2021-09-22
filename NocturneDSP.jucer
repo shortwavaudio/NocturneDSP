@@ -7,6 +7,7 @@
   <MAINGROUP id="eAeQh7" name="NocturneDSP">
     <GROUP id="{6C6EAC7C-CE0D-CC88-BC3B-38285C42ECB3}" name="Resources">
       <GROUP id="{DA74E3D5-711B-AED1-DC45-00095AB6A6D1}" name="impulses">
+        <FILE id="NLzl0N" name="chunk.wav" compile="0" resource="1" file="Resources/impulses/chunk.wav"/>
         <FILE id="gTedXN" name="default.wav" compile="0" resource="1" file="Resources/impulses/default.wav"/>
       </GROUP>
       <GROUP id="{9E16A9BB-8868-B1AA-E487-F0A8C639EC6D}" name="models">
