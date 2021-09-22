@@ -160,7 +160,7 @@ void NocturneDSPAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, 
     updateParams();
 
     juce::dsp::AudioBlock<float> block = juce::dsp::AudioBlock<float>(buffer);
-    
+
     gain.process(juce::dsp::ProcessContextReplacing<float>(block));
     
     LSTM.process(buffer.getReadPointer(0), buffer.getWritePointer(0), numSamples);
@@ -168,9 +168,9 @@ void NocturneDSPAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, 
     for (int ch = 1; ch < buffer.getNumChannels(); ++ch)
         buffer.copyFrom(ch, 0, buffer, 0, 0, numSamples);
 
-    if(cabEnabled)
-        cab.process(juce::dsp::ProcessContextReplacing<float>(block));
-    
+//    if(cabEnabled)
+//        cab.process(juce::dsp::ProcessContextReplacing<float>(block));
+
     volume.process(juce::dsp::ProcessContextReplacing<float>(block));
 }
 
@@ -218,52 +218,13 @@ void NocturneDSPAudioProcessor::loadCab(const char *impulse, const int size)
         juce::dsp::Convolution::Trim::no,
         0
     );
-    
+
     this->suspendProcessing(false);
 }
 
 void NocturneDSPAudioProcessor::loadProfile(const char *jsonFile)
 {
 //    this->suspendProcessing(true);
-//
-//    loader.load_binary(jsonFile);
-//
-////    std::cout << "loader.hidden_size: " << loader.hidden_size << std::endl;
-////    std::cout << "loader.conv1d_kernel_size: " << loader.conv1d_kernel_size << std::endl;
-////    std::cout << "loader.conv1d_1_kernel_size: " << loader.conv1d_1_kernel_size << std::endl;
-////    std::cout << "loader.conv1d_num_channels: " << loader.conv1d_num_channels << std::endl;
-////    std::cout << "loader.conv1d_1_num_channels: " << loader.conv1d_num_channels << std::endl;
-////    std::cout << "loader.conv1d_bias_nc: " << loader.conv1d_bias_nc << std::endl;
-////    std::cout << "loader.conv1d_1_bias_nc: " << loader.conv1d_1_bias_nc << std::endl;
-////    std::cout << "loader.conv1d_kernel_nc|0: " << loader.conv1d_kernel_nc.at(0) << std::endl;
-////    std::cout << "loader.conv1d_1_kernel_nc|0: " << loader.conv1d_1_kernel_nc.at(0) << std::endl;
-////    std::cout << "loader.lstm_bias_nc: " << loader.lstm_bias_nc << std::endl;
-////    std::cout << "loader.lstm_kernel_nc: " << loader.lstm_kernel_nc << std::endl;
-////    std::cout << "loader.dense_bias_nc: " << loader.dense_bias_nc << std::endl;
-////    std::cout << "loader.dense_kernel_nc: " << loader.dense_kernel_nc << std::endl;
-////    std::cout << "loader.input_size_loader: " << loader.input_size_loader << std::endl;
-////    std::cout << "loader.conv1d_stride_loader: " << loader.conv1d_stride_loader << std::endl;
-////    std::cout << "loader.conv1d_1_stride_loader: " << loader.conv1d_1_stride_loader << std::endl;
-//
-//    LSTM.setParams(
-//        loader.hidden_size,
-//        loader.conv1d_kernel_size,
-//        loader.conv1d_1_kernel_size,
-//        loader.conv1d_num_channels,
-//        loader.conv1d_1_num_channels,
-//        loader.conv1d_bias_nc,
-//        loader.conv1d_1_bias_nc,
-//        loader.conv1d_kernel_nc,
-//        loader.conv1d_1_kernel_nc,
-//        loader.lstm_bias_nc,
-//        loader.lstm_kernel_nc,
-//        loader.dense_bias_nc,
-//        loader.dense_kernel_nc,
-//        loader.input_size_loader,
-//        loader.conv1d_stride_loader,
-//        loader.conv1d_1_stride_loader
-//    );
-//
 //    this->suspendProcessing(false);
 }
 
@@ -274,14 +235,14 @@ juce::AudioProcessorValueTreeState::ParameterLayout NocturneDSPAudioProcessor::c
     // Channel
     layout.add(std::make_unique<juce::AudioParameterInt>("CHANNEL", "Channel", 1, 4, 1));
     layout.add(std::make_unique<juce::AudioParameterInt>("BOOSTENABLED", "BoostEnabled", 0, 1, 0));
-    
+
     // Cab
-    layout.add(std::make_unique<juce::AudioParameterInt>("CAB", "Cab", 1, 1, 1));
+//    layout.add(std::make_unique<juce::AudioParameterInt>("CAB", "Cab", 1, 1, 1));
     layout.add(std::make_unique<juce::AudioParameterInt>("CABENABLED", "CabEnabled", 0, 1, 1));
-    
+
     // Gain
     layout.add(std::make_unique<juce::AudioParameterFloat>("GAIN", "Gain", juce::NormalisableRange<float>(1.f, 10.f, .1f), DEFAULT_GAIN));
-    
+
     // Volume
     layout.add(std::make_unique<juce::AudioParameterFloat>("VOLUME", "Volume", juce::NormalisableRange<float>(-12.f, 12.f, .1f), DEFAULT_VOLUME));
     
@@ -293,11 +254,11 @@ void NocturneDSPAudioProcessor::updateParams()
 //    float sampleRate = getSampleRate();
     
     // Cab
-    cabEnabled = state.getRawParameterValue("CABENABLED")->load() == 1;
-    
-    // Gain
+//    cabEnabled = state.getRawParameterValue("CABENABLED")->load() == 1;
+//    
+//    // Gain
     gain.setGainDecibels(state.getRawParameterValue("GAIN")->load());
-    
+//    
     // Volume
     volume.setGainDecibels(state.getRawParameterValue("VOLUME")->load());
 }

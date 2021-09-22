@@ -89,21 +89,21 @@ void NocturneDSPAudioProcessorEditor::updateProfile()
     int choice = channelSelector.getSelectedId();
     bool boostEnabled = boostToggle.getToggleState();
     
-//    std::cout << "UPDATE PROFILE; CHOICE: " << choice << " BOOST ? " << boostEnabled << std::endl;
+    std::cout << "UPDATE PROFILE; CHOICE: " << choice << " BOOST ? " << boostEnabled << std::endl;
 
-    switch(choice)
-    {
-        case 1:
-            audioProcessor.loadProfile(boostEnabled ? BinaryData::_02_revv_g20_lstm_clean_boost_json : BinaryData::_01_revv_g20_lstm_clean_json);
-            break;
-        case 2:
-            audioProcessor.loadProfile(boostEnabled ? BinaryData::_04_revv_g20_lstm_crunch_boost_json : BinaryData::_03_revv_g20_lstm_crunch_json);
-            break;
-        case 3:
-            audioProcessor.loadProfile(boostEnabled ? BinaryData::_06_revv_g20_lstm_rhythm_boost_json : BinaryData::_05_revv_g20_lstm_rhythm_json);
-            break;
-        case 4:
-            audioProcessor.loadProfile(boostEnabled ? BinaryData::_08_revv_g20_lstm_lead_boost_json : BinaryData::_07_revv_g20_lstm_lead_json);
-            break;
-    }
+//    switch(choice)
+//    {
+//        case 1:
+//            audioProcessor.loadProfile(boostEnabled ? BinaryData::_02_revv_g20_lstm_clean_boost_json : BinaryData::_01_revv_g20_lstm_clean_json);
+//            break;
+//        case 2:
+//            audioProcessor.loadProfile(boostEnabled ? BinaryData::_04_revv_g20_lstm_crunch_boost_json : BinaryData::_03_revv_g20_lstm_crunch_json);
+//            break;
+//        case 3:
+//            audioProcessor.loadProfile(boostEnabled ? BinaryData::_06_revv_g20_lstm_rhythm_boost_json : BinaryData::_05_revv_g20_lstm_rhythm_json);
+//            break;
+//        case 4:
+//            audioProcessor.loadProfile(boostEnabled ? BinaryData::_08_revv_g20_lstm_lead_boost_json : BinaryData::_07_revv_g20_lstm_lead_json);
+//            break;
+//    }
 }
