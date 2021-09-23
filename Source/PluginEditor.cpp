@@ -21,7 +21,7 @@ NocturneDSPAudioProcessorEditor::NocturneDSPAudioProcessorEditor (NocturneDSPAud
     
     // CAB SELECTOR
     cabSelector.addItemList(cabs, 1);
-//    cabSelector.onChange = [&]() { updateProfile(); };
+    cabSelector.onChange = [&]() { updateCab(); };
     addAndMakeVisible(cabSelector);
     cabSelectorAttachment = std::make_unique<juce::AudioProcessorValueTreeState::ComboBoxAttachment>(audioProcessor.state, "CAB", cabSelector);
 
@@ -29,9 +29,16 @@ NocturneDSPAudioProcessorEditor::NocturneDSPAudioProcessorEditor (NocturneDSPAud
     cabAttachment = std::make_unique<juce::AudioProcessorValueTreeState::ButtonAttachment>(audioProcessor.state, "CABENABLED", cabToggle);
     
     // BOOST
-//    addAndMakeVisible(boostToggle);
-//    boostToggle.onStateChange = [&]() { updateProfile(); };
-//    boostAttachment = std::make_unique<juce::AudioProcessorValueTreeState::ButtonAttachment>(audioProcessor.state, "BOOSTENABLED", boostToggle);
+    addAndMakeVisible(boostToggle);
+    boostToggle.onStateChange = [&]() { updateProfile(); };
+    boostAttachment = std::make_unique<juce::AudioProcessorValueTreeState::ButtonAttachment>(audioProcessor.state, "BOOSTENABLED", boostToggle);
+    
+    // INPUT
+    inputSlider.setName("Input");
+    inputSlider.setSliderStyle(juce::Slider::SliderStyle::LinearHorizontal);
+    inputSlider.setTextBoxStyle(juce::Slider::TextBoxRight, true, 50, 25);
+    addAndMakeVisible(inputSlider);
+    inputSliderAttachment = std::make_unique<juce::AudioProcessorValueTreeState::SliderAttachment>(audioProcessor.state, "INPUT", inputSlider);
     
     // GAIN
     gainSlider.setName("Gain");
@@ -66,6 +73,7 @@ void NocturneDSPAudioProcessorEditor::paint (juce::Graphics& g)
     g.setFont (15.0f);
     g.drawFittedText ("Nocturne DSP Kitchen Sink", getLocalBounds().reduced(10), juce::Justification::centredTop, 1);
     
+    g.drawText("Input", 20, getHeight() - 210, 100, 20, juce::Justification::centredLeft);
     g.drawText("Gain", 20, getHeight() - 140, 100, 20, juce::Justification::centredLeft);
     g.drawText("Volume", 20, getHeight() - 70, 100, 20, juce::Justification::centredLeft);
 }
@@ -75,11 +83,12 @@ void NocturneDSPAudioProcessorEditor::resized()
     // This is generally where you'll want to lay out the positions of any
     // subcomponents in your editor..
     channelSelector.setBounds(10, getHeight() - 450, getWidth() - 30, 40);
-//    boostToggle.setBounds(10, getHeight() - 400, 100, 30);
+    boostToggle.setBounds(10, getHeight() - 400, 100, 30);
     
     cabSelector.setBounds(10, getHeight() - 350, getWidth() - 30, 40);
     cabToggle.setBounds(10, getHeight() - 300, 100, 30);
     
+    inputSlider.setBounds(10, getHeight() - 200, getWidth() - 30, 50);
     gainSlider.setBounds(10, getHeight() - 130, getWidth() - 30, 50);
     volumeSlider.setBounds(10, getHeight() - 60, getWidth() - 30, 50);
 }
@@ -87,23 +96,39 @@ void NocturneDSPAudioProcessorEditor::resized()
 void NocturneDSPAudioProcessorEditor::updateProfile()
 {
     int choice = channelSelector.getSelectedId();
-    bool boostEnabled = boostToggle.getToggleState();
     
-    std::cout << "UPDATE PROFILE; CHOICE: " << choice << " BOOST ? " << boostEnabled << std::endl;
+    std::cout << "UPDATE PROFILE; CHOICE: " << choice << std::endl;
 
 //    switch(choice)
 //    {
 //        case 1:
-//            audioProcessor.loadProfile(boostEnabled ? BinaryData::_02_revv_g20_lstm_clean_boost_json : BinaryData::_01_revv_g20_lstm_clean_json);
+//            audioProcessor.loadProfile(BinaryData::_01_revv_g20_lstm_clean_json);
 //            break;
 //        case 2:
-//            audioProcessor.loadProfile(boostEnabled ? BinaryData::_04_revv_g20_lstm_crunch_boost_json : BinaryData::_03_revv_g20_lstm_crunch_json);
+//            audioProcessor.loadProfile(BinaryData::_03_revv_g20_lstm_crunch_json);
 //            break;
 //        case 3:
-//            audioProcessor.loadProfile(boostEnabled ? BinaryData::_06_revv_g20_lstm_rhythm_boost_json : BinaryData::_05_revv_g20_lstm_rhythm_json);
+//            audioProcessor.loadProfile(BinaryData::_05_revv_g20_lstm_rhythm_json);
 //            break;
 //        case 4:
-//            audioProcessor.loadProfile(boostEnabled ? BinaryData::_08_revv_g20_lstm_lead_boost_json : BinaryData::_07_revv_g20_lstm_lead_json);
+//            audioProcessor.loadProfile(BinaryData::_07_revv_g20_lstm_lead_json);
 //            break;
 //    }
+}
+
+void NocturneDSPAudioProcessorEditor::updateCab()
+{
+    int choice = cabSelector.getSelectedId();
+    
+    switch (choice) {
+        case 1:
+            audioProcessor.loadImpulseResponse(BinaryData::default_wav, BinaryData::default_wavSize);
+            break;
+        case 2:
+            audioProcessor.loadImpulseResponse(BinaryData::chunk2_wav, BinaryData::chunk2_wavSize);
+            break;
+            
+        default:
+            break;
+    }
 }

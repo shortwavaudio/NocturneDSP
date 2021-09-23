@@ -11,6 +11,7 @@
 #include <JuceHeader.h>
 #include "include/RTNeuralLSTM.h"
 
+#define DEFAULT_INPUT 0.f
 #define DEFAULT_GAIN 1.f
 #define DEFAULT_VOLUME 6.f
 
@@ -59,16 +60,15 @@ public:
     
     juce::AudioProcessorValueTreeState state;
 
-    void loadCab(const char *impulse, const int size);
+    void loadImpulseResponse(const char *impulse, const int size);
     void loadProfile(const char *jsonFile);
     
-//    bool boostEnabled;
-    RT_LSTM LSTM;
+    RT_LSTM boost, preamp;
 private:
     juce::dsp::Convolution cab;
-    juce::dsp::Gain<float> gain, volume;
+    juce::dsp::Gain<float> input, gain, volume;
     
-    bool cabEnabled;
+    bool boostEnabled, cabEnabled;
     
     juce::AudioProcessorValueTreeState::ParameterLayout createParams();
     void updateParams();

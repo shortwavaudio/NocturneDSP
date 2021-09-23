@@ -25,14 +25,15 @@ public:
     void resized() override;
     
     void updateProfile();
+    void updateCab();
 
 private:
     // This reference is provided as a quick way for your editor to
     // access the processor object that created it.
     NocturneDSPAudioProcessor& audioProcessor;
     
-    juce::Slider gainSlider, volumeSlider;
-    std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment> gainSliderAttachment, volumeSliderAttachment;
+    juce::Slider inputSlider, gainSlider, volumeSlider;
+    std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment> inputSliderAttachment, gainSliderAttachment, volumeSliderAttachment;
     
     juce::ComboBox cabSelector, channelSelector;
     std::unique_ptr<juce::AudioProcessorValueTreeState::ComboBoxAttachment> cabSelectorAttachment, channelSelectorAttachment;

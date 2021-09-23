@@ -22,9 +22,10 @@ NocturneDSPAudioProcessor::NocturneDSPAudioProcessor()
                        ), state(*this, nullptr, "parameters", createParams())
 #endif
 {
-//    loadProfile(BinaryData::_01_revv_g20_lstm_clean_json);
-    LSTM.load_json("/Users/sppericat/Workspace/juce/NocturneDSP/Resources/models/model_best_1343.json");
-    loadCab(BinaryData::default_wav , BinaryData::default_wavSize);
+    boost.load_json("/Users/sppericat/Workspace/juce/NocturneDSP/Resources/models/model_boost_1202_210922.json");
+    preamp.load_json("/Users/sppericat/Workspace/juce/NocturneDSP/Resources/models/model_rhythm_1343_210921.json");
+
+    loadImpulseResponse(BinaryData::chunk2_wav , BinaryData::chunk2_wavSize);
 }
 
 NocturneDSPAudioProcessor::~NocturneDSPAudioProcessor()
@@ -106,7 +107,8 @@ void NocturneDSPAudioProcessor::prepareToPlay (double sampleRate, int samplesPer
     cab.prepare(spec);
     cab.reset();
     
-    LSTM.reset();
+    boost.reset();
+    preamp.reset();
 }
 
 void NocturneDSPAudioProcessor::releaseResources()
@@ -160,10 +162,19 @@ void NocturneDSPAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, 
     updateParams();
 
     juce::dsp::AudioBlock<float> block = juce::dsp::AudioBlock<float>(buffer);
-
+    
+    input.process(juce::dsp::ProcessContextReplacing<float>(block));
+    
+    /**
+     * TODO: oversampling...
+     */
+    
+    if(boostEnabled)
+        boost.process(buffer.getReadPointer(0), buffer.getWritePointer(0), numSamples);
+    
     gain.process(juce::dsp::ProcessContextReplacing<float>(block));
     
-    LSTM.process(buffer.getReadPointer(0), buffer.getWritePointer(0), numSamples);
+    preamp.process(buffer.getReadPointer(0), buffer.getWritePointer(0), numSamples);
 
     for (int ch = 1; ch < buffer.getNumChannels(); ++ch)
         buffer.copyFrom(ch, 0, buffer, 0, 0, numSamples);
@@ -207,7 +218,7 @@ juce::AudioProcessor* JUCE_CALLTYPE createPluginFilter()
     return new NocturneDSPAudioProcessor();
 }
 
-void NocturneDSPAudioProcessor::loadCab(const char *impulse, const int size)
+void NocturneDSPAudioProcessor::loadImpulseResponse(const char *impulse, const int size)
 {
     this->suspendProcessing(true);
 
@@ -240,8 +251,11 @@ juce::AudioProcessorValueTreeState::ParameterLayout NocturneDSPAudioProcessor::c
     layout.add(std::make_unique<juce::AudioParameterInt>("CAB", "Cab", 1, 2, 1));
     layout.add(std::make_unique<juce::AudioParameterInt>("CABENABLED", "CabEnabled", 0, 1, 1));
 
+    // Input
+    layout.add(std::make_unique<juce::AudioParameterFloat>("INPUT", "Input", juce::NormalisableRange<float>(-12.f, 12.f, .1f), DEFAULT_INPUT));
+    
     // Gain
-    layout.add(std::make_unique<juce::AudioParameterFloat>("GAIN", "Gain", juce::NormalisableRange<float>(1.f, 10.f, .1f), DEFAULT_GAIN));
+    layout.add(std::make_unique<juce::AudioParameterFloat>("GAIN", "Gain", juce::NormalisableRange<float>(1.f, 3.f, .01f), DEFAULT_GAIN));
 
     // Volume
     layout.add(std::make_unique<juce::AudioParameterFloat>("VOLUME", "Volume", juce::NormalisableRange<float>(-12.f, 12.f, .1f), DEFAULT_VOLUME));
@@ -253,12 +267,18 @@ void NocturneDSPAudioProcessor::updateParams()
 {
 //    float sampleRate = getSampleRate();
     
+    // Boost
+    boostEnabled = state.getRawParameterValue("BOOSTENABLED")->load() == 1;
+    
     // Cab
     cabEnabled = state.getRawParameterValue("CABENABLED")->load() == 1;
     
-//    // Gain
-    gain.setGainDecibels(state.getRawParameterValue("GAIN")->load());
-//    
+    // Input
+    input.setGainDecibels(state.getRawParameterValue("INPUT")->load());
+    
+    // Gain
+    gain.setGainLinear(state.getRawParameterValue("GAIN")->load());
+   
     // Volume
     volume.setGainDecibels(state.getRawParameterValue("VOLUME")->load());
 }
