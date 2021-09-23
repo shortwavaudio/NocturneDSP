@@ -9,7 +9,7 @@
 #pragma once
 
 #include <JuceHeader.h>
-#include "include/RTNeuralLSTM.h"
+#include "include/NocturneDSP.h"
 
 #define DEFAULT_INPUT 0.f
 #define DEFAULT_GAIN 1.f
@@ -63,7 +63,7 @@ public:
     void loadImpulseResponse(const char *impulse, const int size);
     void loadProfile(const char *jsonFile);
     
-    RT_LSTM boost, preamp;
+    NocturneDSP boost, preamp;
 private:
     juce::dsp::Convolution cab;
     juce::dsp::Gain<float> input, gain, volume;

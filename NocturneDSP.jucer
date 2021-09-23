@@ -10,13 +10,18 @@
         <FILE id="scpjvK" name="chunk2.wav" compile="0" resource="1" file="Resources/impulses/chunk2.wav"/>
         <FILE id="gTedXN" name="default.wav" compile="0" resource="1" file="Resources/impulses/default.wav"/>
       </GROUP>
-      <GROUP id="{9E16A9BB-8868-B1AA-E487-F0A8C639EC6D}" name="models"/>
+      <GROUP id="{9E16A9BB-8868-B1AA-E487-F0A8C639EC6D}" name="models">
+        <FILE id="WzG3rv" name="model_boost_1202_210922.json" compile="0" resource="1"
+              file="Resources/models/model_boost_1202_210922.json"/>
+        <FILE id="shXmga" name="model_clean_1302_210923.json" compile="0" resource="1"
+              file="Resources/models/model_clean_1302_210923.json"/>
+        <FILE id="Liy0sW" name="model_rhythm_1343_210921.json" compile="0"
+              resource="1" file="Resources/models/model_rhythm_1343_210921.json"/>
+      </GROUP>
     </GROUP>
     <GROUP id="{C0FC2C71-6E38-4980-1ECB-373D3C64FC92}" name="Source">
       <GROUP id="{DAEF3DA3-BCC3-5C47-D391-037AF375D81C}" name="include">
-        <FILE id="gQk0IJ" name="RTNeuralLSTM.cpp" compile="1" resource="0"
-              file="Source/include/RTNeuralLSTM.cpp"/>
-        <FILE id="ZT7yiN" name="RTNeuralLSTM.h" compile="0" resource="0" file="Source/include/RTNeuralLSTM.h"/>
+        <FILE id="fWlCcP" name="NocturneDSP.h" compile="0" resource="0" file="Source/include/NocturneDSP.h"/>
       </GROUP>
       <FILE id="u44Q9C" name="PluginProcessor.cpp" compile="1" resource="0"
             file="Source/PluginProcessor.cpp"/>

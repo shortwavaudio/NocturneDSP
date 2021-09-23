@@ -23,7 +23,7 @@ NocturneDSPAudioProcessor::NocturneDSPAudioProcessor()
 #endif
 {
     boost.load_json("/Users/sppericat/Workspace/juce/NocturneDSP/Resources/models/model_boost_1202_210922.json");
-    preamp.load_json("/Users/sppericat/Workspace/juce/NocturneDSP/Resources/models/model_rhythm_1343_210921.json");
+    preamp.load_json("/Users/sppericat/Workspace/juce/NocturneDSP/Resources/models/model_clean_1302_210923.json");
 
     loadImpulseResponse(BinaryData::chunk2_wav , BinaryData::chunk2_wavSize);
 }
