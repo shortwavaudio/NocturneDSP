@@ -241,7 +241,6 @@ void NocturneDSPAudioProcessor::loadProfile(const char *jsonFile)
     
 //    preamp.load_json(jsonFile);
     preamp.load_binary(jsonFile);
-//    preamp.reset();
     
     this->suspendProcessing(false);
 }
@@ -298,7 +297,6 @@ void NocturneDSPAudioProcessor::loadBoost()
 
 //    boost.load_json("/Users/sppericat/Workspace/juce/NocturneDSP/Resources/models/model_boost_1202_210922.json");
     boost.load_binary(BinaryData::model_boost_1202_210922_json);
-//    boost.reset();
     
     this->suspendProcessing(false);
 }

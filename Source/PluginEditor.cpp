@@ -30,7 +30,6 @@ NocturneDSPAudioProcessorEditor::NocturneDSPAudioProcessorEditor (NocturneDSPAud
     
     // BOOST
     addAndMakeVisible(boostToggle);
-    boostToggle.onStateChange = [&]() { updateProfile(); };
     boostAttachment = std::make_unique<juce::AudioProcessorValueTreeState::ButtonAttachment>(audioProcessor.state, "BOOSTENABLED", boostToggle);
     
     // INPUT
@@ -97,10 +96,10 @@ void NocturneDSPAudioProcessorEditor::updateProfile()
 {
     int choice = channelSelector.getSelectedId();
     
-    if(choice == activeProfile)
-    {
-        return;
-    }
+//    if(choice == activeProfile)
+//    {
+//        return;
+//    }
     
     std::cout << "UPDATING PROFILE... CHOICE: " << choice << std::endl;
     
