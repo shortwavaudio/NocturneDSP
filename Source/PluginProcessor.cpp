@@ -22,8 +22,8 @@ NocturneDSPAudioProcessor::NocturneDSPAudioProcessor()
                        ), state(*this, nullptr, "parameters", createParams())
 #endif
 {
-    boost.load_json("/Users/sppericat/Workspace/juce/NocturneDSP/Resources/models/model_boost_1202_210922.json");
-    preamp.load_json("/Users/sppericat/Workspace/juce/NocturneDSP/Resources/models/model_clean_1302_210923.json");
+    boost.load_binary(BinaryData::model_boost_1202_210922_json);
+    preamp.load_binary(BinaryData::model_clean_1302_210923_json);
 
     loadImpulseResponse(BinaryData::chunk2_wav , BinaryData::chunk2_wavSize);
 }
@@ -235,8 +235,11 @@ void NocturneDSPAudioProcessor::loadImpulseResponse(const char *impulse, const i
 
 void NocturneDSPAudioProcessor::loadProfile(const char *jsonFile)
 {
-//    this->suspendProcessing(true);
-//    this->suspendProcessing(false);
+    this->suspendProcessing(true);
+    
+    preamp.load_binary(jsonFile);
+    
+    this->suspendProcessing(false);
 }
 
 juce::AudioProcessorValueTreeState::ParameterLayout NocturneDSPAudioProcessor::createParams()

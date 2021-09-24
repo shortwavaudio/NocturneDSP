@@ -99,21 +99,19 @@ void NocturneDSPAudioProcessorEditor::updateProfile()
     
     std::cout << "UPDATE PROFILE; CHOICE: " << choice << std::endl;
 
-//    switch(choice)
-//    {
-//        case 1:
-//            audioProcessor.loadProfile(BinaryData::_01_revv_g20_lstm_clean_json);
-//            break;
-//        case 2:
-//            audioProcessor.loadProfile(BinaryData::_03_revv_g20_lstm_crunch_json);
-//            break;
-//        case 3:
-//            audioProcessor.loadProfile(BinaryData::_05_revv_g20_lstm_rhythm_json);
-//            break;
-//        case 4:
-//            audioProcessor.loadProfile(BinaryData::_07_revv_g20_lstm_lead_json);
-//            break;
-//    }
+    switch(choice)
+    {
+        case 1:
+            audioProcessor.loadProfile(BinaryData::model_clean_1302_210923_json);
+            break;
+        case 2:
+            break;
+        case 3:
+            audioProcessor.loadProfile(BinaryData::model_rhythm_1343_210921_json);
+            break;
+        case 4:
+            break;
+    }
 }
 
 void NocturneDSPAudioProcessorEditor::updateCab()
