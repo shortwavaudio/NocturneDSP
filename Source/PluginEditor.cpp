@@ -112,6 +112,7 @@ void NocturneDSPAudioProcessorEditor::updateProfile()
 //            audioProcessor.loadProfile("/Users/sppericat/Workspace/juce/NocturneDSP/Resources/models/model_clean_1302_210923.json");
             break;
         case 2:
+            audioProcessor.loadProfile(BinaryData::model_crunch_1758_210924_json);
             break;
         case 3:
             audioProcessor.loadProfile(BinaryData::model_rhythm_1343_210921_json);

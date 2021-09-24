@@ -15,6 +15,8 @@
               file="Resources/models/model_boost_1202_210922.json"/>
         <FILE id="shXmga" name="model_clean_1302_210923.json" compile="0" resource="1"
               file="Resources/models/model_clean_1302_210923.json"/>
+        <FILE id="CxkSZY" name="model_crunch_1758_210924.json" compile="0"
+              resource="1" file="Resources/models/model_crunch_1758_210924.json"/>
         <FILE id="Liy0sW" name="model_rhythm_1343_210921.json" compile="0"
               resource="1" file="Resources/models/model_rhythm_1343_210921.json"/>
       </GROUP>
