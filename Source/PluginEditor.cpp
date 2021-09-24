@@ -97,17 +97,26 @@ void NocturneDSPAudioProcessorEditor::updateProfile()
 {
     int choice = channelSelector.getSelectedId();
     
-    std::cout << "UPDATE PROFILE; CHOICE: " << choice << std::endl;
+    if(choice == activeProfile)
+    {
+        return;
+    }
+    
+    std::cout << "UPDATING PROFILE... CHOICE: " << choice << std::endl;
+    
+    activeProfile = choice;
 
-    switch(choice)
+    switch(activeProfile)
     {
         case 1:
             audioProcessor.loadProfile(BinaryData::model_clean_1302_210923_json);
+//            audioProcessor.loadProfile("/Users/sppericat/Workspace/juce/NocturneDSP/Resources/models/model_clean_1302_210923.json");
             break;
         case 2:
             break;
         case 3:
             audioProcessor.loadProfile(BinaryData::model_rhythm_1343_210921_json);
+//            audioProcessor.loadProfile("/Users/sppericat/Workspace/juce/NocturneDSP/Resources/models/model_rhythm_1343_210921.json");
             break;
         case 4:
             break;
@@ -117,6 +126,8 @@ void NocturneDSPAudioProcessorEditor::updateProfile()
 void NocturneDSPAudioProcessorEditor::updateCab()
 {
     int choice = cabSelector.getSelectedId();
+    
+    std::cout << "CAB CHANGE: " << choice << std::endl;
     
     switch (choice) {
         case 1:
