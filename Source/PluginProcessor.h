@@ -61,9 +61,9 @@ public:
     juce::AudioProcessorValueTreeState state;
 
     void loadImpulseResponse(const char *impulse, const int size);
-    void loadProfile(const char *jsonFile);
     
-    NocturneDSP boost, preamp;
+    NocturneDSP boost;
+    NocturneDSP channels[4];
 private:
     juce::dsp::Convolution cab;
     juce::dsp::Gain<float> input, gain, volume;
@@ -74,6 +74,9 @@ private:
     void updateParams();
     
     void loadBoost();
+    void loadProfile(int index, const char* binary);
+    
+    int activeChannel;
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (NocturneDSPAudioProcessor)
 };

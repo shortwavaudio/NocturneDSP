@@ -15,7 +15,6 @@ NocturneDSPAudioProcessorEditor::NocturneDSPAudioProcessorEditor (NocturneDSPAud
 {
     // CHANNEL SELECTOR
     channelSelector.addItemList(channels, 1);
-    channelSelector.onChange = [&]() { updateProfile(); };
     addAndMakeVisible(channelSelector);
     channelSelectorAttachment = std::make_unique<juce::AudioProcessorValueTreeState::ComboBoxAttachment>(audioProcessor.state, "CHANNEL", channelSelector);
     
@@ -90,37 +89,6 @@ void NocturneDSPAudioProcessorEditor::resized()
     inputSlider.setBounds(10, getHeight() - 200, getWidth() - 30, 50);
     gainSlider.setBounds(10, getHeight() - 130, getWidth() - 30, 50);
     volumeSlider.setBounds(10, getHeight() - 60, getWidth() - 30, 50);
-}
-
-void NocturneDSPAudioProcessorEditor::updateProfile()
-{
-    int choice = channelSelector.getSelectedId();
-    
-//    if(choice == activeProfile)
-//    {
-//        return;
-//    }
-    
-    std::cout << "UPDATING PROFILE... CHOICE: " << choice << std::endl;
-    
-    activeProfile = choice;
-
-    switch(activeProfile)
-    {
-        case 1:
-            audioProcessor.loadProfile(BinaryData::model_clean_1302_210923_json);
-//            audioProcessor.loadProfile("/Users/sppericat/Workspace/juce/NocturneDSP/Resources/models/model_clean_1302_210923.json");
-            break;
-        case 2:
-            audioProcessor.loadProfile(BinaryData::model_crunch_1758_210924_json);
-            break;
-        case 3:
-            audioProcessor.loadProfile(BinaryData::model_rhythm_1343_210921_json);
-//            audioProcessor.loadProfile("/Users/sppericat/Workspace/juce/NocturneDSP/Resources/models/model_rhythm_1343_210921.json");
-            break;
-        case 4:
-            break;
-    }
 }
 
 void NocturneDSPAudioProcessorEditor::updateCab()

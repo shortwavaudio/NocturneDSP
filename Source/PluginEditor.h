@@ -23,8 +23,7 @@ public:
     //==============================================================================
     void paint (juce::Graphics&) override;
     void resized() override;
-    
-    void updateProfile();
+
     void updateCab();
 
 private:

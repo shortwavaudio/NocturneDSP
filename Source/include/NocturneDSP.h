@@ -40,7 +40,6 @@ struct NocturneDSP
         nlohmann::json weights_json = nlohmann::json::parse(binary);
         
         load_model(weights_json);
-//        parse_model(weights_json);
     }
 
     void load_json(const char* filePath)
@@ -77,17 +76,6 @@ struct NocturneDSP
         
         model.reset();
     }
-    
-    void parse_model(nlohmann::json& weights)
-    {
-        std::cout << "parsing model..." << std::endl;
-//        neuralNet = RTNeural::json_parser::parseJson<float> (weights);
-//        neuralNet->reset();
-//        auto model = RTNeural::json_parser::parseJson<double>(weights);
-//        std::cout << model << std::endl;
-//        modelT.parseJson(model);
-//        model.reset();
-    }
 
     void process(const float* inData, float* outData, int numSamples)
     {
@@ -96,5 +84,4 @@ struct NocturneDSP
     }
     
     RTNeural::ModelT<float, 1, 1, RTNeural::LSTMLayerT<float, 1, 32>, RTNeural::DenseT<float, 32, 1>> model;
-//    std::unique_ptr<RTNeural::ModelT<float, 1, 1, RTNeural::LSTMLayerT<float, 1, 32>, RTNeural::DenseT<float, 32, 1>>> neuralNet;
 };

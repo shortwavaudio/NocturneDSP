@@ -22,10 +22,13 @@ NocturneDSPAudioProcessor::NocturneDSPAudioProcessor()
                        ), state(*this, nullptr, "parameters", createParams())
 #endif
 {
-//    boost.load_binary(BinaryData::model_boost_1202_210922_json);
-//    preamp.load_binary(BinaryData::model_clean_1302_210923_json);
+    loadBoost();
 
-//    loadImpulseResponse(BinaryData::chunk2_wav , BinaryData::chunk2_wavSize);
+    loadProfile(0, BinaryData::model_clean_1302_210923_json);
+    loadProfile(1, BinaryData::model_crunch_1758_210924_json);
+    loadProfile(2, BinaryData::model_rhythm_1343_210921_json);
+    /// TODO: replace with lead profile!
+    loadProfile(3, BinaryData::model_clean_1302_210923_json);
 }
 
 NocturneDSPAudioProcessor::~NocturneDSPAudioProcessor()
@@ -106,11 +109,6 @@ void NocturneDSPAudioProcessor::prepareToPlay (double sampleRate, int samplesPer
     
     cab.prepare(spec);
     cab.reset();
-
-    preamp.reset();
-    boost.reset();
-    
-    loadBoost();
 }
 
 void NocturneDSPAudioProcessor::releaseResources()
@@ -175,8 +173,8 @@ void NocturneDSPAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, 
         boost.process(buffer.getReadPointer(0), buffer.getWritePointer(0), numSamples);
     
     gain.process(juce::dsp::ProcessContextReplacing<float>(block));
-    
-    preamp.process(buffer.getReadPointer(0), buffer.getWritePointer(0), numSamples);
+
+    channels[activeChannel].process(buffer.getReadPointer(0), buffer.getWritePointer(0), numSamples);
 
     for (int ch = 1; ch < buffer.getNumChannels(); ++ch)
         buffer.copyFrom(ch, 0, buffer, 0, 0, numSamples);
@@ -235,12 +233,14 @@ void NocturneDSPAudioProcessor::loadImpulseResponse(const char *impulse, const i
     this->suspendProcessing(false);
 }
 
-void NocturneDSPAudioProcessor::loadProfile(const char *jsonFile)
+void NocturneDSPAudioProcessor::loadProfile(int index, const char* binary)
 {
-    this->suspendProcessing(true);
+    std::cout << "LOADING AMP MODEL: " << index << std::endl;
     
-//    preamp.load_json(jsonFile);
-    preamp.load_binary(jsonFile);
+    this->suspendProcessing(true);
+
+    channels[index].load_binary(binary);
+    channels[index].reset();
     
     this->suspendProcessing(false);
 }
@@ -271,20 +271,26 @@ juce::AudioProcessorValueTreeState::ParameterLayout NocturneDSPAudioProcessor::c
 
 void NocturneDSPAudioProcessor::updateParams()
 {
-//    float sampleRate = getSampleRate();
-    
+    // Input
+    input.setGainDecibels(state.getRawParameterValue("INPUT")->load());
+
     // Boost
     boostEnabled = state.getRawParameterValue("BOOSTENABLED")->load() == 1;
+    
+    // Gain
+    gain.setGainLinear(state.getRawParameterValue("GAIN")->load());
+    
+    // Channel
+    const int selectedChannel = state.getRawParameterValue("CHANNEL")->load();
+    if(activeChannel != selectedChannel - 1)
+    {
+        activeChannel = selectedChannel - 1;
+        channels[activeChannel].reset();
+    }
     
     // Cab
     cabEnabled = state.getRawParameterValue("CABENABLED")->load() == 1;
     
-    // Input
-    input.setGainDecibels(state.getRawParameterValue("INPUT")->load());
-    
-    // Gain
-    gain.setGainLinear(state.getRawParameterValue("GAIN")->load());
-   
     // Volume
     volume.setGainDecibels(state.getRawParameterValue("VOLUME")->load());
 }
@@ -295,8 +301,8 @@ void NocturneDSPAudioProcessor::loadBoost()
     
     std::cout << "LOADING BOOST MODEL..." << std::endl;
 
-//    boost.load_json("/Users/sppericat/Workspace/juce/NocturneDSP/Resources/models/model_boost_1202_210922.json");
     boost.load_binary(BinaryData::model_boost_1202_210922_json);
+    boost.reset();
     
     this->suspendProcessing(false);
 }
