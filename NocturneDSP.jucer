@@ -19,6 +19,8 @@
               resource="1" file="Resources/models/model_crunch_1758_210924.json"/>
         <FILE id="Liy0sW" name="model_rhythm_1343_210921.json" compile="0"
               resource="1" file="Resources/models/model_rhythm_1343_210921.json"/>
+        <FILE id="rYKjYO" name="model_rhythm_v2_2009_210925.json" compile="0"
+              resource="1" file="Resources/models/model_rhythm_v2_2009_210925.json"/>
       </GROUP>
     </GROUP>
     <GROUP id="{C0FC2C71-6E38-4980-1ECB-373D3C64FC92}" name="Source">
