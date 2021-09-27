@@ -17,6 +17,8 @@
               file="Resources/models/model_clean_1302_210923.json"/>
         <FILE id="CxkSZY" name="model_crunch_1758_210924.json" compile="0"
               resource="1" file="Resources/models/model_crunch_1758_210924.json"/>
+        <FILE id="MV7TX3" name="model_lead_2154_210926.json" compile="0" resource="1"
+              file="Resources/models/model_lead_2154_210926.json"/>
         <FILE id="Liy0sW" name="model_rhythm_1343_210921.json" compile="0"
               resource="1" file="Resources/models/model_rhythm_1343_210921.json"/>
         <FILE id="rYKjYO" name="model_rhythm_v2_2009_210925.json" compile="0"

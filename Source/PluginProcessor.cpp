@@ -27,8 +27,7 @@ NocturneDSPAudioProcessor::NocturneDSPAudioProcessor()
     loadProfile(0, BinaryData::model_clean_1302_210923_json);
     loadProfile(1, BinaryData::model_crunch_1758_210924_json);
     loadProfile(2, BinaryData::model_rhythm_1343_210921_json);
-    /// TODO: replace with lead profile!
-    loadProfile(3, BinaryData::model_clean_1302_210923_json);
+    loadProfile(3, BinaryData::model_lead_2154_210926_json);
     loadProfile(4, BinaryData::model_rhythm_v2_2009_210925_json);
 }
 
