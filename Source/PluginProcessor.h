@@ -67,6 +67,10 @@ public:
 private:
     juce::dsp::Convolution cab;
     juce::dsp::Gain<float> input, gain, volume;
+
+    // needed for smooth fading between models
+    juce::AudioBuffer<float> fadeBuffer;
+    NocturneDSP* fadeChannel = nullptr;
     
     bool boostEnabled, cabEnabled;
     

@@ -110,6 +110,8 @@ void NocturneDSPAudioProcessor::prepareToPlay (double sampleRate, int samplesPer
     
     cab.prepare(spec);
     cab.reset();
+
+    fadeBuffer.setSize(1, samplesPerBlock);
 }
 
 void NocturneDSPAudioProcessor::releaseResources()
@@ -175,7 +177,25 @@ void NocturneDSPAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, 
     
     gain.process(juce::dsp::ProcessContextReplacing<float>(block));
 
-    channels[activeChannel].process(buffer.getReadPointer(0), buffer.getWritePointer(0), numSamples);
+    if (fadeChannel == nullptr) // no fade needed!
+    {
+        channels[activeChannel].process(buffer.getReadPointer(0), buffer.getWritePointer(0), numSamples);
+    }
+    else
+    {
+        // copy original buffer
+        juce::FloatVectorOperations::copy(fadeBuffer.getWritePointer(0), buffer.getReadPointer(0), numSamples);
+
+        // process with current and previous processor
+        channels[activeChannel].process(buffer.getReadPointer(0), buffer.getWritePointer(0), numSamples);
+        fadeChannel->process(fadeBuffer.getReadPointer(0), fadeBuffer.getWritePointer(0), numSamples);
+
+        // crossfade buffers
+        buffer.applyGainRamp(0, 0, numSamples, 0.0f, 1.0f);
+        buffer.addFromWithRamp(0, 0, fadeBuffer.getReadPointer(0), numSamples, 1.0f, 0.0f);
+
+        fadeChannel = nullptr;
+    }
 
     for (int ch = 1; ch < buffer.getNumChannels(); ++ch)
         buffer.copyFrom(ch, 0, buffer, 0, 0, numSamples);
@@ -285,6 +305,7 @@ void NocturneDSPAudioProcessor::updateParams()
     const int selectedChannel = state.getRawParameterValue("CHANNEL")->load();
     if(activeChannel != selectedChannel - 1)
     {
+        fadeChannel = &channels[activeChannel];
         activeChannel = selectedChannel - 1;
         channels[activeChannel].reset();
     }
