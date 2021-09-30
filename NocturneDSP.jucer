@@ -2,38 +2,34 @@
 
 <JUCERPROJECT id="WHmn5F" name="NocturneDSP" projectType="audioplug" useAppConfig="0"
               addUsingNamespaceToJuceHeader="0" displaySplashScreen="1" jucerFormatVersion="1"
-              companyName="ShortwavAudio" companyCopyright="2021 ShortwavAudio"
+              companyName="Shortwav Audio" companyCopyright="2021 Shortwav Audio co."
               companyWebsite="https://shortwavaudio.co/" companyEmail="contact@shortwavaudio.co">
   <MAINGROUP id="eAeQh7" name="NocturneDSP">
     <GROUP id="{6C6EAC7C-CE0D-CC88-BC3B-38285C42ECB3}" name="Resources">
       <GROUP id="{DA74E3D5-711B-AED1-DC45-00095AB6A6D1}" name="impulses">
+        <FILE id="scpjvK" name="chunk2.wav" compile="0" resource="1" file="Resources/impulses/chunk2.wav"/>
         <FILE id="gTedXN" name="default.wav" compile="0" resource="1" file="Resources/impulses/default.wav"/>
       </GROUP>
       <GROUP id="{9E16A9BB-8868-B1AA-E487-F0A8C639EC6D}" name="models">
-        <FILE id="LrtGdZ" name="01_revv_g20_lstm_clean.json" compile="0" resource="1"
-              file="Resources/models/01_revv_g20_lstm_clean.json"/>
-        <FILE id="BhceVI" name="02_revv_g20_lstm_clean_boost.json" compile="0"
-              resource="1" file="Resources/models/02_revv_g20_lstm_clean_boost.json"/>
-        <FILE id="EX5mpB" name="03_revv_g20_lstm_crunch.json" compile="0" resource="1"
-              file="Resources/models/03_revv_g20_lstm_crunch.json"/>
-        <FILE id="jOPCzK" name="04_revv_g20_lstm_crunch_boost.json" compile="0"
-              resource="1" file="Resources/models/04_revv_g20_lstm_crunch_boost.json"/>
-        <FILE id="j0gbrU" name="05_revv_g20_lstm_rhythm.json" compile="0" resource="1"
-              file="Resources/models/05_revv_g20_lstm_rhythm.json"/>
-        <FILE id="OtYxc4" name="06_revv_g20_lstm_rhythm_boost.json" compile="0"
-              resource="1" file="Resources/models/06_revv_g20_lstm_rhythm_boost.json"/>
-        <FILE id="g9KApB" name="07_revv_g20_lstm_lead.json" compile="0" resource="1"
-              file="Resources/models/07_revv_g20_lstm_lead.json"/>
-        <FILE id="VUKrwU" name="08_revv_g20_lstm_lead_boost.json" compile="0"
-              resource="1" file="Resources/models/08_revv_g20_lstm_lead_boost.json"/>
+        <FILE id="WzG3rv" name="model_boost_1202_210922.json" compile="0" resource="1"
+              file="Resources/models/model_boost_1202_210922.json"/>
+        <FILE id="shXmga" name="model_clean_1302_210923.json" compile="0" resource="1"
+              file="Resources/models/model_clean_1302_210923.json"/>
+        <FILE id="CxkSZY" name="model_crunch_1758_210924.json" compile="0"
+              resource="1" file="Resources/models/model_crunch_1758_210924.json"/>
+        <FILE id="MV7TX3" name="model_lead_2154_210926.json" compile="0" resource="1"
+              file="Resources/models/model_lead_2154_210926.json"/>
+        <FILE id="Y8Tg3A" name="model_lead_v2_1507_210929.json" compile="0"
+              resource="1" file="Resources/models/model_lead_v2_1507_210929.json"/>
+        <FILE id="Liy0sW" name="model_rhythm_1343_210921.json" compile="0"
+              resource="1" file="Resources/models/model_rhythm_1343_210921.json"/>
+        <FILE id="rYKjYO" name="model_rhythm_v2_2009_210925.json" compile="0"
+              resource="1" file="Resources/models/model_rhythm_v2_2009_210925.json"/>
       </GROUP>
     </GROUP>
     <GROUP id="{C0FC2C71-6E38-4980-1ECB-373D3C64FC92}" name="Source">
       <GROUP id="{DAEF3DA3-BCC3-5C47-D391-037AF375D81C}" name="include">
-        <FILE id="L7vOm2" name="lstm.cpp" compile="1" resource="0" file="Source/include/lstm.cpp"/>
-        <FILE id="YFvuPA" name="lstm.h" compile="0" resource="0" file="Source/include/lstm.h"/>
-        <FILE id="t3UoCm" name="ModelLoader.cpp" compile="1" resource="0" file="Source/include/ModelLoader.cpp"/>
-        <FILE id="is5qdW" name="ModelLoader.h" compile="0" resource="0" file="Source/include/ModelLoader.h"/>
+        <FILE id="fWlCcP" name="NocturneDSP.h" compile="0" resource="0" file="Source/include/NocturneDSP.h"/>
       </GROUP>
       <FILE id="u44Q9C" name="PluginProcessor.cpp" compile="1" resource="0"
             file="Source/PluginProcessor.cpp"/>
@@ -48,8 +44,10 @@
   <EXPORTFORMATS>
     <XCODE_MAC targetFolder="Builds/MacOSX">
       <CONFIGURATIONS>
-        <CONFIGURATION isDebug="1" name="Debug" targetName="NocturneDSP" headerPath="/Users/sppericat/Workspace/juce/json/include&#10;/Users/sppericat/Workspace/juce/NumCpp/include&#10;/Users/sppericat/Workspace/juce/boost_1_77_0"/>
-        <CONFIGURATION isDebug="0" name="Release" targetName="NocturneDSP" headerPath="/Users/sppericat/Workspace/juce/json/include&#10;/Users/sppericat/Workspace/juce/NumCpp/include&#10;/Users/sppericat/Workspace/juce/boost_1_77_0"/>
+        <CONFIGURATION isDebug="1" name="Debug" targetName="NocturneDSP" headerPath="/Users/sppericat/Workspace/juce/RTNeural&#10;/Users/sppericat/Workspace/juce/RTNeural/modules/json/include&#10;/Users/sppericat/Workspace/juce/RTNeural/modules/xsimd/include"
+                       defines="USE_XSIMD=1"/>
+        <CONFIGURATION isDebug="0" name="Release" targetName="NocturneDSP" headerPath="/Users/sppericat/Workspace/juce/RTNeural&#10;/Users/sppericat/Workspace/juce/RTNeural/modules/json/include&#10;/Users/sppericat/Workspace/juce/RTNeural/modules/xsimd/include"
+                       defines="USE_XSIMD=1"/>
       </CONFIGURATIONS>
       <MODULEPATHS>
         <MODULEPATH id="juce_audio_basics" path="../../../JUCE/modules"/>
@@ -67,21 +65,47 @@
         <MODULEPATH id="juce_dsp" path="../../../JUCE/modules"/>
       </MODULEPATHS>
     </XCODE_MAC>
+    <VS2019 targetFolder="Builds/VisualStudio2019">
+      <CONFIGURATIONS>
+        <CONFIGURATION isDebug="1" name="Debug" headerPath="D:\Documents\CCRMA\Research\RTNeural\RTNeural&#10;D:\Documents\CCRMA\Research\RTNeural\RTNeural\modules\json\include&#10;D:\Documents\CCRMA\Research\RTNeural\RTNeural\modules\xsimd\include"
+                       defines="USE_XSIMD=1"/>
+        <CONFIGURATION isDebug="0" name="Release" headerPath="D:\Documents\CCRMA\Research\RTNeural\RTNeural&#10;D:\Documents\CCRMA\Research\RTNeural\RTNeural\modules\json\include&#10;D:\Documents\CCRMA\Research\RTNeural\RTNeural\modules\xsimd\include"
+                       defines="USE_XSIMD=1"/>
+      </CONFIGURATIONS>
+      <MODULEPATHS>
+        <MODULEPATH id="juce_gui_extra" path="..\OrganWerks\JUCE\modules"/>
+        <MODULEPATH id="juce_gui_basics" path="..\OrganWerks\JUCE\modules"/>
+        <MODULEPATH id="juce_graphics" path="..\OrganWerks\JUCE\modules"/>
+        <MODULEPATH id="juce_events" path="..\OrganWerks\JUCE\modules"/>
+        <MODULEPATH id="juce_dsp" path="..\OrganWerks\JUCE\modules"/>
+        <MODULEPATH id="juce_data_structures" path="..\OrganWerks\JUCE\modules"/>
+        <MODULEPATH id="juce_core" path="..\OrganWerks\JUCE\modules"/>
+        <MODULEPATH id="juce_audio_utils" path="..\OrganWerks\JUCE\modules"/>
+        <MODULEPATH id="juce_audio_processors" path="..\OrganWerks\JUCE\modules"/>
+        <MODULEPATH id="juce_audio_plugin_client" path="..\OrganWerks\JUCE\modules"/>
+        <MODULEPATH id="juce_audio_formats" path="..\OrganWerks\JUCE\modules"/>
+        <MODULEPATH id="juce_audio_devices" path="..\OrganWerks\JUCE\modules"/>
+        <MODULEPATH id="juce_audio_basics" path="..\OrganWerks\JUCE\modules"/>
+      </MODULEPATHS>
+    </VS2019>
   </EXPORTFORMATS>
   <MODULES>
-    <MODULE id="juce_audio_basics" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
-    <MODULE id="juce_audio_devices" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
-    <MODULE id="juce_audio_formats" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_audio_basics" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
+    <MODULE id="juce_audio_devices" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
+    <MODULE id="juce_audio_formats" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
     <MODULE id="juce_audio_plugin_client" showAllCode="1" useLocalCopy="0"
-            useGlobalPath="1"/>
-    <MODULE id="juce_audio_processors" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
-    <MODULE id="juce_audio_utils" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
-    <MODULE id="juce_core" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
-    <MODULE id="juce_data_structures" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
-    <MODULE id="juce_dsp" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
-    <MODULE id="juce_events" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
-    <MODULE id="juce_graphics" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
-    <MODULE id="juce_gui_basics" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
-    <MODULE id="juce_gui_extra" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+            useGlobalPath="0"/>
+    <MODULE id="juce_audio_processors" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
+    <MODULE id="juce_audio_utils" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
+    <MODULE id="juce_core" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
+    <MODULE id="juce_data_structures" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
+    <MODULE id="juce_dsp" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
+    <MODULE id="juce_events" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
+    <MODULE id="juce_graphics" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
+    <MODULE id="juce_gui_basics" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
+    <MODULE id="juce_gui_extra" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
   </MODULES>
+  <LIVE_SETTINGS>
+    <WINDOWS/>
+  </LIVE_SETTINGS>
 </JUCERPROJECT>

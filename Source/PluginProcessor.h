@@ -9,10 +9,9 @@
 #pragma once
 
 #include <JuceHeader.h>
-#include <nlohmann/json.hpp>
-#include "NumCpp.hpp"
-#include "include/lstm.h"
+#include "include/NocturneDSP.h"
 
+#define DEFAULT_INPUT 0.f
 #define DEFAULT_GAIN 1.f
 #define DEFAULT_VOLUME 6.f
 
@@ -61,21 +60,27 @@ public:
     
     juce::AudioProcessorValueTreeState state;
 
-    void loadCab(const char *impulse, const int size);
-    void loadProfile(const char *jsonFile);
+    void loadImpulseResponse(const char *impulse, const int size);
     
-    ModelLoader loader;
-    lstm LSTM;
-    
-//    bool boostEnabled;
+    NocturneDSP boost;
+    NocturneDSP channels[6];
 private:
     juce::dsp::Convolution cab;
-    juce::dsp::Gain<float> gain, volume;
+    juce::dsp::Gain<float> input, gain, volume;
+
+    // needed for smooth fading between models
+    juce::AudioBuffer<float> fadeBuffer;
+    NocturneDSP* fadeChannel = nullptr;
     
-    bool cabEnabled;
+    bool boostEnabled, cabEnabled;
     
-    juce::AudioProcessorValueTreeState::ParameterLayout createParams();
+    static juce::AudioProcessorValueTreeState::ParameterLayout createParams();
     void updateParams();
+    
+    void loadBoost();
+    void loadProfile(int index, const char* binary);
+    
+    int activeChannel;
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (NocturneDSPAudioProcessor)
 };

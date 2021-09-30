@@ -8,32 +8,32 @@
 
 namespace BinaryData
 {
+    extern const char*   chunk2_wav;
+    const int            chunk2_wavSize = 72104;
+
     extern const char*   default_wav;
     const int            default_wavSize = 72104;
 
-    extern const char*   _01_revv_g20_lstm_clean_json;
-    const int            _01_revv_g20_lstm_clean_jsonSize = 15583;
+    extern const char*   model_boost_1202_210922_json;
+    const int            model_boost_1202_210922_jsonSize = 101793;
 
-    extern const char*   _02_revv_g20_lstm_clean_boost_json;
-    const int            _02_revv_g20_lstm_clean_boost_jsonSize = 15694;
+    extern const char*   model_clean_1302_210923_json;
+    const int            model_clean_1302_210923_jsonSize = 98231;
 
-    extern const char*   _03_revv_g20_lstm_crunch_json;
-    const int            _03_revv_g20_lstm_crunch_jsonSize = 15642;
+    extern const char*   model_crunch_1758_210924_json;
+    const int            model_crunch_1758_210924_jsonSize = 98189;
 
-    extern const char*   _04_revv_g20_lstm_crunch_boost_json;
-    const int            _04_revv_g20_lstm_crunch_boost_jsonSize = 15630;
+    extern const char*   model_lead_2154_210926_json;
+    const int            model_lead_2154_210926_jsonSize = 97960;
 
-    extern const char*   _05_revv_g20_lstm_rhythm_json;
-    const int            _05_revv_g20_lstm_rhythm_jsonSize = 15579;
+    extern const char*   model_lead_v2_1507_210929_json;
+    const int            model_lead_v2_1507_210929_jsonSize = 97991;
 
-    extern const char*   _06_revv_g20_lstm_rhythm_boost_json;
-    const int            _06_revv_g20_lstm_rhythm_boost_jsonSize = 15558;
+    extern const char*   model_rhythm_1343_210921_json;
+    const int            model_rhythm_1343_210921_jsonSize = 97993;
 
-    extern const char*   _07_revv_g20_lstm_lead_json;
-    const int            _07_revv_g20_lstm_lead_jsonSize = 15637;
-
-    extern const char*   _08_revv_g20_lstm_lead_boost_json;
-    const int            _08_revv_g20_lstm_lead_boost_jsonSize = 15569;
+    extern const char*   model_rhythm_v2_2009_210925_json;
+    const int            model_rhythm_v2_2009_210925_jsonSize = 98810;
 
     // Number of elements in the namedResourceList and originalFileNames arrays.
     const int namedResourceListSize = 9;

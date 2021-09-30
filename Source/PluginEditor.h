@@ -23,16 +23,16 @@ public:
     //==============================================================================
     void paint (juce::Graphics&) override;
     void resized() override;
-    
-    void updateProfile();
+
+    void updateCab();
 
 private:
     // This reference is provided as a quick way for your editor to
     // access the processor object that created it.
     NocturneDSPAudioProcessor& audioProcessor;
     
-    juce::Slider gainSlider, volumeSlider;
-    std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment> gainSliderAttachment, volumeSliderAttachment;
+    juce::Slider inputSlider, gainSlider, volumeSlider;
+    std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment> inputSliderAttachment, gainSliderAttachment, volumeSliderAttachment;
     
     juce::ComboBox cabSelector, channelSelector;
     std::unique_ptr<juce::AudioProcessorValueTreeState::ComboBoxAttachment> cabSelectorAttachment, channelSelectorAttachment;
@@ -42,15 +42,20 @@ private:
     std::unique_ptr<juce::AudioProcessorValueTreeState::ButtonAttachment> cabAttachment, boostAttachment;
     
     const juce::StringArray cabs = {
-        "default"
+        "default",
+        "chunk"
     };
     
     const juce::StringArray channels = {
         "clean",
         "crunch",
         "rhythm",
-        "lead"
+        "lead",
+        "rhythm v2",
+        "lead v2"
     };
+    
+    int activeProfile;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (NocturneDSPAudioProcessorEditor)
 };

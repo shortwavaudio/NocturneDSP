@@ -44,7 +44,7 @@
  #define JucePlugin_Desc                   "NocturneDSP"
 #endif
 #ifndef  JucePlugin_Manufacturer
- #define JucePlugin_Manufacturer           "ShortwavAudio"
+ #define JucePlugin_Manufacturer           "Shortwav Audio"
 #endif
 #ifndef  JucePlugin_ManufacturerWebsite
  #define JucePlugin_ManufacturerWebsite    "https://shortwavaudio.co/"
@@ -149,7 +149,7 @@
  #define JucePlugin_IAASubType             JucePlugin_PluginCode
 #endif
 #ifndef  JucePlugin_IAAName
- #define JucePlugin_IAAName                "ShortwavAudio: NocturneDSP"
+ #define JucePlugin_IAAName                "Shortwav Audio: NocturneDSP"
 #endif
 #ifndef  JucePlugin_VSTNumMidiInputs
  #define JucePlugin_VSTNumMidiInputs       16
