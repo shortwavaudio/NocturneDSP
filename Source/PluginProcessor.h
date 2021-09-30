@@ -63,7 +63,7 @@ public:
     void loadImpulseResponse(const char *impulse, const int size);
     
     NocturneDSP boost;
-    NocturneDSP channels[5];
+    NocturneDSP channels[6];
 private:
     juce::dsp::Convolution cab;
     juce::dsp::Gain<float> input, gain, volume;
@@ -74,7 +74,7 @@ private:
     
     bool boostEnabled, cabEnabled;
     
-    juce::AudioProcessorValueTreeState::ParameterLayout createParams();
+    static juce::AudioProcessorValueTreeState::ParameterLayout createParams();
     void updateParams();
     
     void loadBoost();

@@ -29,6 +29,7 @@ NocturneDSPAudioProcessor::NocturneDSPAudioProcessor()
     loadProfile(2, BinaryData::model_rhythm_1343_210921_json);
     loadProfile(3, BinaryData::model_lead_2154_210926_json);
     loadProfile(4, BinaryData::model_rhythm_v2_2009_210925_json);
+    loadProfile(5, BinaryData::model_lead_v2_1507_210929_json);
 }
 
 NocturneDSPAudioProcessor::~NocturneDSPAudioProcessor()
@@ -214,6 +215,7 @@ bool NocturneDSPAudioProcessor::hasEditor() const
 juce::AudioProcessorEditor* NocturneDSPAudioProcessor::createEditor()
 {
     return new NocturneDSPAudioProcessorEditor (*this);
+//    return new juce::GenericAudioProcessorEditor(*this);
 }
 
 //==============================================================================
@@ -270,7 +272,7 @@ juce::AudioProcessorValueTreeState::ParameterLayout NocturneDSPAudioProcessor::c
     juce::AudioProcessorValueTreeState::ParameterLayout layout;
     
     // Channel
-    layout.add(std::make_unique<juce::AudioParameterInt>("CHANNEL", "Channel", 1, 5, 1));
+    layout.add(std::make_unique<juce::AudioParameterInt>("CHANNEL", "Channel", 1, 6, 1));
     layout.add(std::make_unique<juce::AudioParameterInt>("BOOSTENABLED", "BoostEnabled", 0, 1, 0));
 
     // Cab

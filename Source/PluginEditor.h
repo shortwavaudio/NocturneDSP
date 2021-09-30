@@ -51,7 +51,8 @@ private:
         "crunch",
         "rhythm",
         "lead",
-        "rhythm v2"
+        "rhythm v2",
+        "lead v2"
     };
     
     int activeProfile;
