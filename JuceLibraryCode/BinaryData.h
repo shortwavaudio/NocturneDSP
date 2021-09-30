@@ -23,20 +23,14 @@ namespace BinaryData
     extern const char*   model_crunch_1758_210924_json;
     const int            model_crunch_1758_210924_jsonSize = 98189;
 
-    extern const char*   model_lead_2154_210926_json;
-    const int            model_lead_2154_210926_jsonSize = 97960;
-
     extern const char*   model_lead_v2_1507_210929_json;
     const int            model_lead_v2_1507_210929_jsonSize = 97991;
-
-    extern const char*   model_rhythm_1343_210921_json;
-    const int            model_rhythm_1343_210921_jsonSize = 97993;
 
     extern const char*   model_rhythm_v2_2009_210925_json;
     const int            model_rhythm_v2_2009_210925_jsonSize = 98810;
 
     // Number of elements in the namedResourceList and originalFileNames arrays.
-    const int namedResourceListSize = 9;
+    const int namedResourceListSize = 7;
 
     // Points to the start of a list of resource names.
     extern const char* namedResourceList[];
