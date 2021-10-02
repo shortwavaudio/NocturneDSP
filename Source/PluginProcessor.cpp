@@ -25,7 +25,7 @@ NocturneDSPAudioProcessor::NocturneDSPAudioProcessor()
     loadBoost();
 
     loadProfile(0, BinaryData::model_clean_1302_210923_json);
-    loadProfile(1, BinaryData::model_crunch_1758_210924_json);
+    loadProfile(1, BinaryData::model_crunch_v2_1427_211002_json);
     loadProfile(2, BinaryData::model_rhythm_v2_2009_210925_json);
     loadProfile(3, BinaryData::model_lead_v2_1507_210929_json);
 }

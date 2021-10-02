@@ -20,8 +20,8 @@ namespace BinaryData
     extern const char*   model_clean_1302_210923_json;
     const int            model_clean_1302_210923_jsonSize = 98231;
 
-    extern const char*   model_crunch_1758_210924_json;
-    const int            model_crunch_1758_210924_jsonSize = 98189;
+    extern const char*   model_crunch_v2_1427_211002_json;
+    const int            model_crunch_v2_1427_211002_jsonSize = 98529;
 
     extern const char*   model_lead_v2_1507_210929_json;
     const int            model_lead_v2_1507_210929_jsonSize = 97991;
